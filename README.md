@@ -21,7 +21,7 @@ Create a new entity.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| registeredParentNumber | String(100) | Required | The unique legal identifier of the entity mother house. |
+| registeredParentNumber | String(100) | Required | The unique legal identifier of the entity's parent registered company. |
 | registeredNumber | String(100) | Required |  The unique legal identifier of the entity opening the account. |
 | registeredName | String(100) | Required |  The legal name of the entity. |
 | commercialName | String(100) | Required |  The commercial name of the entity. |
