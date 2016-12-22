@@ -35,6 +35,8 @@ Create a new entity.
 
 # API Objects  
 
+
+* [Address Object](#address_object)
 * [Entity Object](#entity_object)
 * [Contact Object](#contact_object)
 
@@ -101,7 +103,7 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
 | registeredName | [Individual_Name Object](#individual_name_object) | The individual name of the contact. |
 | tag | String(100) | The customized name of the contact. |
 | address | [Address Object](#address_object) | The contact address. |
-| birthDate | [Date](../conventions/formattingConventions.md#type_date) | The birthdate of the contact. |
+| birthDate | [Date](#type_date) | The birthdate of the contact. |
 | phoneNumber | [phone Object](#phone_object)  | The phone number of the entity. |
 | position | [position Object](#position_object)  | The position of the entity. |
 | idProof | [idProof Object](#idProof_object)  | The url where the file is stored. |
@@ -123,3 +125,85 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
 ```
 
 <hr />
+
+#### <a id="address_object"></a> Address Object ####
+
+When an address is specified as part of a JSON body, it is encoded as an object with the following fields:
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| street | String(255) | The street for the address described. |
+| postCode | String(15) | The ZIP/Post code for the address described. |
+| city | String(35) | The city for the address described. |
+| state | String(2) | The state code for the address described. This field could be required if the country use a state system, like United States or Canada. To see a full list of state code, please refer to [this site](http://www.mapability.com/ei8ic/contest/states.php). |
+| country | String(2) | The two-letters abbreviation for the country, following the [ISO-3166](http://fr.wikipedia.org/wiki/ISO_3166) for the address described. |
+
+**Example:**
+
+```js
+"address": {
+	"street": "4 NEW YORK PLAZA, FLOOR 15",
+	"postCode": "10004",
+	"city": "NEW YORK",
+	"state": "NY",
+	"country": "US"
+}
+```
+
+<hr />
+
+#### <a id="phone_object"></a> Phone Object ####
+
+When a phone number is specified as part of a JSON body, it is encoded as an object with the following fields:
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| countryCode | String(4) | The country code related to the phone number. |
+| phoneNumber | String(15) | the phone number without indicative |
+
+**Example:**
+
+```js
+"phone": {
+    "countryCode": "+33",
+    "phoneNumber": "81445561400010",
+}
+```
+
+<hr />
+
+#### <a id="individualName_object"></a> Individual Name Object ####
+
+When a phone number is specified as part of a JSON body, it is encoded as an object with the following fields:
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| countryCode | String(4) | The country code related to the phone number. |
+| phoneNumber | String(15) | the phone number without indicative |
+
+**Example:**
+
+```js
+"phone": {
+    "countryCode": "+33",
+    "phoneNumber": "81445561400010",
+}
+```
+
+<hr />
+
+# Formatting Conventions #  
+
+### <a id="type_date"></a> Date Type ###
+
+The Date type represents a date with its year, month and day.
+
+| Type | Real type | format | description | example |
+|------|-----------|--------|-------------|---------|
+| Date | String | `^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$` - `YYYY-MM-DD` | A String representing a date by its year, month and day in month. | `2015-07-14` |
