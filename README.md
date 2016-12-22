@@ -5,7 +5,8 @@
 | Route | Description |
 |-------|-------------|
 | [`POST /entity/`](#post_entity) | Post a new entity |
-| [`POST /contact/`](#post_contact) | Post a new contact|
+| [`POST /organizationStructure/`](#post_organisationStructure) | Post an Organisation Structure related to an entity |
+| [`POST /contact/`](#post_contact) | Post a new contact |
 
 ## Details ##
 
@@ -24,24 +25,50 @@ Create a new entity.
 | registeredParentNumber | String(100) | Required | The unique legal identifier of the entity's parent registered company. |
 | registeredNumber | String(100) | Required |  The unique legal identifier of the entity opening the account. |
 | registeredName | String(100) | Required |  The legal name of the entity. |
-| commercialName | String(100) | Required |  The commercial name of the entity. |
-| tag | String(100) | Required |  The customized name of the entity. |
+| commercialName | String(100) | Optional |  The commercial name of the entity. |
+| tag | String(100) | Optional |  The customized name of the entity. |
 | address | [Address Object](#address_object) | Required |  The entity address. |
-| activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | Required |  The code identifying the type of business. |
+| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
 | registrationDate | [Date](../conventions/formattingConventions.md#type_date) | Required |  The legal date of creation of the entity. |
-| legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | Required |  The legal form of the entity. |
+| legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
 | authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
-| phoneNumber | [phone Object](#phone_object)  | Required |  The phone number of the entity. |
+| phoneNumber | [phone Object](#phone_object)  | Optional |  The phone number of the entity. |
+| email | [email Object](#email_object)  | Optional |  The  email address of the entity. |
+| primaryUrl | [email Object](#email_object)  | Optional |  The  email address of the entity. |
+
+#### <a id="post_entity"></a> Define the Organization Structure ####
+
+```
+Method: POST 
+URL: /entity/
+```
+This structure describe an organization and its compliance information.
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| entityId | [ID](../conventions/formattingConventions.md#type_id) | Required | The IF code identifying the entity. |
+| registeredNumber | String(100) | Required |  The unique legal identifier of the entity opening the account. |
+| registeredName | String(100) | Required |  The legal name of the entity. |
+| commercialName | String(100) | Optional |  The commercial name of the entity. |
+| tag | String(100) | Optional |  The customized name of the entity. |
+| address | [Address Object](#address_object) | Required |  The entity address. |
+| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
+| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | Required |  The legal date of creation of the entity. |
+| legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
+| authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
+| phoneNumber | [phone Object](#phone_object)  | Optional |  The phone number of the entity. |
+| email | [email Object](#email_object)  | Optional |  The  email address of the entity. |
 
 # API Objects  
-
 
 * [Address Object](#address_object)
 * [Entity Object](#entity_object)
 * [Contact Object](#contact_object)
-* [phone Object](#phone_object)
-* [individual_Name Object](#individualName_object)
-* [CAmount Object](#amount_object)
+* [Phone Object](#phone_object)
+* [Individual Name Object](#individualName_object)
+* [Amount Object](#amount_object)
 
 ## Details ##
 
