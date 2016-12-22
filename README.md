@@ -39,6 +39,9 @@ Create a new entity.
 * [Address Object](#address_object)
 * [Entity Object](#entity_object)
 * [Contact Object](#contact_object)
+* [phone Object](#phone_object)
+* [individual_Name Object](#individualName_object)
+* [CAmount Object](#amount_object)
 
 ## Details ##
 
@@ -195,6 +198,28 @@ When a phone number is specified as part of a JSON body, it is encoded as an obj
 "phone": {
     "first": "John",
     "last": "Doe",
+}
+```
+
+<hr />
+
+#### <a id="amount_object"></a> Amount Object ####
+
+When an amount of currency is specified as part of a JSON body, it is encoded as an object with the following fields:
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| value  | [QuotedDecimal](../conventions/formattingConventions.md#type_quoteddecimal) | The quantity of the currency. |
+| currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency related to the amount. |
+
+**Example:**
+
+```js
+"amount": {
+	"value": "10000.00",
+	"currency": "GBP"
 }
 ```
 
