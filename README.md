@@ -48,18 +48,8 @@ This structure describe an organization and its compliance information.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| entityId | [ID](../conventions/formattingConventions.md#type_id) | Required | The IF code identifying the entity. |
-| registeredNumber | String(100) | Required |  The unique legal identifier of the entity opening the account. |
-| registeredName | String(100) | Required |  The legal name of the entity. |
-| commercialName | String(100) | Optional |  The commercial name of the entity. |
-| tag | String(100) | Optional |  The customized name of the entity. |
-| address | [Address Object](#address_object) | Required |  The entity address. |
-| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
-| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | Required |  The legal date of creation of the entity. |
-| legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
-| authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
-| phoneNumber | [phone Object](#phone_object)  | Optional |  The phone number of the entity. |
-| email | [email Object](#email_object)  | Optional |  The  email address of the entity. |
+| entityId | [ID](#type_id) | Required | The IF code identifying the entity. |
+| shareholderStructure | [shareholder](#shareholder_structure) | Required | An array listing all the shareholders. |
 
 # API Objects  
 
@@ -193,8 +183,8 @@ When a phone number is specified as part of a JSON body, it is encoded as an obj
 
 | Field | Type | Description |
 |-------|------|-------------|
-| countryCode | String(4) | The country code related to the phone number. |
-| phoneNumber | String(15) | the phone number without indicative |
+| countryCode | String(4) | Numeric country code. Optional +, followed by 1-3 digits. |
+| phoneNumber | String(15) | Country code and phone number. |
 
 **Example:**
 
