@@ -29,7 +29,7 @@ Create a new entity.
 | tag | String(100) | Optional |  The customized name of the entity. |
 | address | [Address Object](#address_object) | Required |  The entity address. |
 | activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
-| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | Required |  The legal date of creation of the entity. |
+| registrationDate | [Date](#type_date) | Required |  The legal date of creation of the entity. |
 | legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
 | authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
 | phoneNumber | [phone Object](#phone_object)  | Optional |  The phone number of the entity. |
