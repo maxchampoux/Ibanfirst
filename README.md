@@ -134,7 +134,8 @@ When an address is specified as part of a JSON body, it is encoded as an object 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| street | String(255) | The street for the address described. |
+| street1 | String(255) | The street for the address described. |
+| street2 | String(255) | The continuation street for the address described. |
 | postCode | String(15) | The ZIP/Post code for the address described. |
 | city | String(35) | The city for the address described. |
 | state | String(2) | The state code for the address described. This field could be required if the country use a state system, like United States or Canada. To see a full list of state code, please refer to [this site](http://www.mapability.com/ei8ic/contest/states.php). |
@@ -184,15 +185,16 @@ When a phone number is specified as part of a JSON body, it is encoded as an obj
 
 | Field | Type | Description |
 |-------|------|-------------|
-| countryCode | String(4) | The country code related to the phone number. |
-| phoneNumber | String(15) | the phone number without indicative |
+| first | String(35) | The individual's first name. Truncated after the first 35 characters. |
+| first | String(35) | The individual's middle name. Truncated after the first 35 characters. |
+| last | String(35) | The individual's last name. Truncated after the first 35 characters. |
 
 **Example:**
 
 ```js
 "phone": {
-    "countryCode": "+33",
-    "phoneNumber": "81445561400010",
+    "first": "John",
+    "last": "Doe",
 }
 ```
 
