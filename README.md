@@ -22,7 +22,7 @@ Create a new entity.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| registeredParentNumber | String(100) | Required | The unique legal identifier of the entity's parent registered company. |
+| registeredParentNumber | String(100) | Optional | The unique legal identifier of the entity's parent registered company. |
 | registeredNumber | String(100) | Required |  The unique legal identifier of the entity opening the account. |
 | registeredName | String(100) | Required |  The legal name of the entity. |
 | commercialName | String(100) | Optional |  The commercial name of the entity. |
@@ -64,7 +64,7 @@ This structure describe an organization and its compliance information.
 
 #### <a id="entity_object"></a> Entity Object ####
 
-What we call a Entity can be only an company incorporated in France or Belgium.
+What we call an Entity can be only an company incorporated in France or Belgium.
 When an entity is specified as part of a JSON body, it is encoded as an object with the following fields:
 
 **Object resources:**
@@ -83,7 +83,6 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
 | legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the entity. |
 | authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital. |
 | phoneNumber | [phone Object](#phone_object)  | The phone number of the entity. |
-| kycLevel | [kycLevel Object](#kycLevel_object)  | The KYC level of the entity. |
 
 **Example:**
 
@@ -101,7 +100,6 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
     "legalForm":"SARL unipersonnelle",
     "authorizedCapital":{amount},
     "phoneNumber":{phone},
-    "kycLevel":1,
 }
 ```
 
