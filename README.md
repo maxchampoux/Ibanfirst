@@ -90,20 +90,22 @@ Create a new entity.
 Method: POST 
 URL: /entity/-{id}/kyc/organisationStructure
 ```
-This structure describes an organization structure.
+This structure describes an organisation structure.
 
 **Parameters:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| entities | Array[ #type_id) | Optional | List of the entities that own more than 10% of the entity we want to create. |
-| contacts | [shareholder](#shareholder_structure) | Optional | List of the contacts that own more than 10% of the entity we want to create. |
+| entities | Array[[entities](#entities_object)] | Optional | List of the entities that own more than 10% of the entity we want to create. |
+| contacts | Array[[contacts](#contacts_object)] | Optional | List of the contacts that own more than 10% of the entity we want to create. |
 
 # API Objects  
 
 * [Address Object](#address_object)
 * [Entity Object](#entity_object)
+* [entities](#entities_object)
 * [Contact Object](#contact_object)
+* [contacts](#contacts_object)
 * [Account Object](#account_object)
 * [Phone Object](#phone_object)
 * [Individual Name Object](#individualName_object)
