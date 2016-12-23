@@ -60,10 +60,6 @@ Create a new entity.
 | commercialName | String(100) | Optional |  The commercial name of the entity. |
 | tag | String(100) | Optional |  The customized name of the entity. |
 | address | [Address Object](#address_object) | Required |  The entity address. |
-| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
-| registrationDate | [Date](#type_date) | Required |  The legal date of creation of the entity. |
-| legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
-| authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
 | phoneNumber | [phone Object](#phone_object)  | Optional |  The phone number of the entity. |
 | email | [email Object](#email_object)  | Optional |  The  email address of the entity. |
 | primaryUrl | [email Object](#email_object)  | Optional |  The  email address of the entity. |
@@ -91,14 +87,13 @@ Add KYC informations to an Entity.
 Method: POST 
 URL: /entity/-{id}/kyc/documentation
 ```
-Add KYC documentation to an Entity. Documentation can be one of the following types:
-* 
+Add KYC documentation to an Entity. 
 
 **Parameters:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
+| proofOfIncorporation | [page](#page) | Required |  The code identifying the type of business. |
 | registrationDate | [Date](#type_date) | Required |  The legal date of creation of the entity. |
 | legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
 | authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
