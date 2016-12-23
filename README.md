@@ -56,6 +56,7 @@ This structure describe an organization and its compliance information.
 * [Address Object](#address_object)
 * [Entity Object](#entity_object)
 * [Contact Object](#contact_object)
+* [Account Object](#account_object)
 * [Phone Object](#phone_object)
 * [Individual Name Object](#individualName_object)
 * [Amount Object](#amount_object)
@@ -171,19 +172,7 @@ When an Account is specified as part of a JSON body, it is encoded as an object 
     "accountNumber": "516981638516313513",
     "correspondantBank":{correspondentBank}
     "holderBank":{beneficiaryBank}
-	"holder":{beneficiary}
-}
-```
-
-<hr />
-    "id": "ND4ue2",
-    "registeredNumber": "81445561400010",
-    "registeredName": {individual_name},
-    "tag":"null",
-    "address": {address},
-    "birthDate":"1980-11-04",
-    "phoneNumber":{phone},
-    "position":{position},
+    "holder":{beneficiary}
 }
 ```
 
