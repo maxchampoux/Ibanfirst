@@ -144,6 +144,52 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
 
 <hr />
 
+
+#### <a id="account_object"></a> Account Object ####
+
+When an Account is specified as part of a JSON body, it is encoded as an object with the following fields:
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id |  [ID](#type_id) | The code identifying the account. |
+| currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency of the account. |
+| tag |  String(50) | Custom reference of the account. |
+| accountNumber | String(40) | The code specifying the account (can be either an Iban or an account number). |
+| correspondentBank | [ID](#type_id) | The intermediary bank details, used to reach the beneficiary bank. |
+| holderBank | [ID](#type_id) | The recipient bank details, holding the account. |
+| holder | [Entity Object](#entity_object) | The recipient details, owner of the account. |
+
+**Example:**
+
+```js
+"account": {
+    "id": "NT4edA",
+    "currency": "EUR",
+    "tag": "My wallet account EUR",
+    "accountNumber": "516981638516313513",
+    "correspondantBank":{correspondentBank}
+    "holderBank":{beneficiaryBank}
+	"holder":{beneficiary}
+}
+```
+
+<hr />
+    "id": "ND4ue2",
+    "registeredNumber": "81445561400010",
+    "registeredName": {individual_name},
+    "tag":"null",
+    "address": {address},
+    "birthDate":"1980-11-04",
+    "phoneNumber":{phone},
+    "position":{position},
+}
+```
+
+<hr />
+
+
 #### <a id="address_object"></a> Address Object ####
 
 When an address is specified as part of a JSON body, it is encoded as an object with the following fields:
