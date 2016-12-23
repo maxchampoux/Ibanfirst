@@ -1,10 +1,11 @@
 # Onboarding - account opening API Service
 
-## Route ##
+## Routes ##
 
 | Route | Description |
 |-------|-------------|
 | [`POST /entity/`](#post_entity) | Post a new entity |
+| [`POST /entity/-{id}/kyc`](#post_entity) | Add a KYC to an entity |
 | [`POST /organizationStructure/`](#post_organisationStructure) | Post an Organisation Structure related to an entity |
 | [`POST /contact/`](#post_contact) | Post a new contact |
 
