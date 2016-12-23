@@ -1,5 +1,35 @@
 # Onboarding - account opening API Service
 
+## Definitions ##
+
+* [Entity Defintion](#definition_entity)
+* [Contact Definition](#definition_contact)
+* [Account Definition](#definition_account)
+
+#### <a id="definition_entity"></a> Define an Entity ####
+
+An Entity is always a corporate (moral person) and can be one of the following types of counterparties:
+* lead 
+* client
+* organization
+* company 
+* supplier 
+* beneficiary 
+
+#### <a id="definition_contact"></a> Define a Contact ####
+
+A Contact is always an individual (physical person) and can be one of the following types of counterparties:
+* lead 
+* client
+* supplier 
+* beneficiary 
+
+#### <a id="definition_account"></a> Define an Account ####
+
+An Account is identifying the bank details of an Entity or a Contact and can be on of the following types of accounts:
+* escrow IBAN account
+* payment IBAN account
+
 ## Routes ##
 
 | Route | Description |
@@ -11,7 +41,7 @@
 
 ## Details ##
 
-#### <a id="post_entity"></a> Create an entity ####
+#### <a id="post_entity"></a> Create an Entity ####
 
 ```
 Method: POST 
@@ -37,20 +67,37 @@ Create a new entity.
 | email | [email Object](#email_object)  | Optional |  The  email address of the entity. |
 | primaryUrl | [email Object](#email_object)  | Optional |  The  email address of the entity. |
 
-#### <a id="post_entity"></a> Define the Organization Structure ####
+#### <a id="post_entity"></a> Add KYC informations to an Entity ####
 
 ```
 Method: POST 
-URL: /entity/
+URL: /entity/-{id}/kyc/details
 ```
-This structure describe an organization and its compliance information.
+Create a new entity.
 
 **Parameters:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| entityId | [ID](#type_id) | Required | The IF code identifying the entity. |
-| shareholderStructure | [shareholder](#shareholder_structure) | Required | An array listing all the shareholders. |
+| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
+| registrationDate | [Date](#type_date) | Required |  The legal date of creation of the entity. |
+| legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
+| authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
+
+#### <a id="post_entity"></a> Add KYC Organization Structure to an Entity ####
+
+```
+Method: POST 
+URL: /entity/-{id}/kyc/organisationStructure
+```
+This structure describes an organization structure.
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| entities | Array[ #type_id) | Optional | List of the entities that own more than 10% of the entity we want to create. |
+| contacts | [shareholder](#shareholder_structure) | Optional | List of the contacts that own more than 10% of the entity we want to create. |
 
 # API Objects  
 
