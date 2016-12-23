@@ -36,7 +36,8 @@ An Account is identifying the bank details of an Entity or a Contact and can be 
 |-------|-------------|
 | [`POST /entity/`](#post_entity) | Post a new entity |
 | [`POST /entity/-{id}/kyc`](#post_entity) | Add a KYC to an entity |
-| [`POST /organizationStructure/`](#post_organisationStructure) | Post an Organisation Structure related to an entity |
+| [`POST /entity/-{id}/kyc/documentation/`](#post_documentation) | Post a Documentation related to an entity |
+| [`POST /entity/-{id}/kyc/organizationStructure/`](#post_organisationStructure) | Post an Organisation Structure related to an entity |
 | [`POST /contact/`](#post_contact) | Post a new contact |
 
 ## Details ##
@@ -73,7 +74,25 @@ Create a new entity.
 Method: POST 
 URL: /entity/-{id}/kyc/details
 ```
-Create a new entity.
+Add KYC informations to an Entity.
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| activityCode | [NAF](#NAF_type) | Required |  The code identifying the type of business. |
+| registrationDate | [Date](#type_date) | Required |  The legal date of creation of the entity. |
+| legalForm | [legalForm](#legalForm) | Required |  The legal form of the entity. |
+| authorizedCapital | [amount Object](#amount_object)  | Required |  The amount in shareholding capital. |
+
+#### <a id="post_entity"></a> Add KYC documentation to an Entity ####
+
+```
+Method: POST 
+URL: /entity/-{id}/kyc/documentation
+```
+Add KYC documentation to an Entity. Documentation can be one of the following types:
+* 
 
 **Parameters:**
 
