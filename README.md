@@ -32,7 +32,7 @@ Several level of KYC may be required depending on the type of relationship betwe
 * Know Your Customer (KYC): Standard Entity Identification Procedure for direct clients.
 * Know your Customers' Shareholder (KYCS): Specific Entity Identification Procedure for shareholders of IbanFirst's direct clients. 
 * Know your Customers' Users (KYCU): Specific Entity Identification Procedure for users of IbanFirst's direct clients. 
-* Know Your Customers' Counterparty: Third-party Customer Identification Procedure for indirect clients.
+* Know Your Customers' Counterparty (KYCC) : Third-party Customer Identification Procedure for indirect clients of licensed IbanFirst's direct clients.
 
 #### <a id="definition_account"></a> Define an Account ####
 
