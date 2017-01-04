@@ -4,7 +4,6 @@
 
 * [Entity Defintion](#definition_entity)
 * [KYC Definition](#definition_kyc)
-* [KYCC Definition](#definition_kycc)
 * [Account Definition](#definition_account)
 * [KYT Definition](#definition_kyt)
 
@@ -28,15 +27,12 @@ An Entity can be both a Corporate (moral person) and an Individual (physical per
 
 #### <a id="definition_kyc"></a> Define a KYC ####
 
-Know your customer (KYC) is the process of a business identifying and verifying the identity of its clients.
-A standard KYC must follow a Customer Identification Procedures requiring information in the following fields :
-* Entity additional information (activity code, registration date, legal form, authorized capital...)
-* Entity additional documents (Proof of incorporation, articles of association, agreement signed, ip signature, timestamp signature...)
-* Entity organisation structure (List of shareholders with shares pourcentages + for entities of more than 10% shares, a KYC is required on those entities).
-
-#### <a id="definition_kycc"></a> Define a KYCC ####
-
-TBD?
+Know Your Customer (KYC) is the process identifying and verifying the identity of an Entity.
+Several level of KYC may be required depending on the type of relationship between IbanFirst and the Entity:
+* Know Your Customer (KYC): Standard Entity Identification Procedure for direct clients.
+* Know your Customers' Shareholder (KYCS): Specific Entity Identification Procedure for shareholders of IbanFirst's direct clients. 
+* Know your Customers' Users (KYCU): Specific Entity Identification Procedure for users of IbanFirst's direct clients. 
+* Know Your Customers' Counterparty: Third-party Customer Identification Procedure for indirect clients.
 
 #### <a id="definition_account"></a> Define an Account ####
 
