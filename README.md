@@ -3,11 +3,14 @@
 ## Definitions ##
 
 * [Entity Defintion](#definition_entity)
+* [KYC Definition](#definition_kyc)
+* [KYCC Definition](#definition_kycc)
 * [Account Definition](#definition_account)
+* [KYT Definition](#definition_kyt)
 
 #### <a id="definition_entity"></a> Define an Entity ####
 
-An Entity can be both a Coporate (moral person) and an Individual (physical person) listed in the following couterparties:
+An Entity can be both a Corporate (moral person) and an Individual (physical person) listed in the following couterparties:
 
 | Corporate |
 * lead 
@@ -22,6 +25,18 @@ An Entity can be both a Coporate (moral person) and an Individual (physical pers
 * client
 * supplier 
 * beneficiary
+
+#### <a id="definition_kyc"></a> Define a KYC ####
+
+Know your customer (KYC) is the process of a business identifying and verifying the identity of its clients.
+A standard KYC must follow a Customer Identification Procedures requiring information in the following fields :
+* Entity additional information (activity code, registration date, legal form, authorized capital...)
+* Entity additional documents (Proof of incorporation, articles of association, agreement signed, ip signature, timestamp signature...)
+* Entity organisation structure (List of shareholders with shares pourcentages + for entities of more than 10% shares, a KYC is required on those entities).
+
+#### <a id="definition_kycc"></a> Define a KYCC ####
+
+TBD?
 
 #### <a id="definition_account"></a> Define an Account ####
 
