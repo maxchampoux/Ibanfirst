@@ -5,7 +5,6 @@
 * [Entity Defintion](#definition_entity)
 * [KYC Definition](#definition_kyc)
 * [Account Definition](#definition_account)
-* [KYT Definition](#definition_kyt)
 
 #### <a id="definition_entity"></a> Define an Entity ####
 
@@ -18,7 +17,7 @@ An Entity can be both a Corporate (moral person) and an Individual (physical per
 * Supplier: When coupled with an Account.
 * Beneficiary: When coupled with an Account.
 
-#### <a id="definition_kyc"></a> Define a KYC ####
+#### <a id="definition_kyc"></a> Define the KYC(s) ####
 
 Know Your Customer (KYC) is the process identifying and verifying the identity of an Entity.
 Several level of KYC may be required depending on the type of relationship between IbanFirst and the Entity:
@@ -29,9 +28,16 @@ Several level of KYC may be required depending on the type of relationship betwe
 
 #### <a id="definition_account"></a> Define an Account ####
 
-An Account is identifying the bank details of an Entity or a Contact and can be on of the following types of accounts:
-* escrow IBAN account
-* payment IBAN account
+An Account is identifying the bank details of an Entity thats can be an IbanFirst's Client or not.
+* IBAN account (IBAN): Standard Payment Account provided by IbanFirst for direct registered Customers or Customers' Clients.
+* Escrow IBAN account (EIBAN): Specific Escrow Account provided by IbanFirst for capital deposit purpose.
+* Liquidity account: TBD.
+* Counterparty account: external bank account referenced with IbanFirst (typically a Beneficiary of a payment).
+
+
+#### <a id="definition_kyt"></a> Define the KYT ####
+
+Know Your transaction (KYT) is the process permitting to spot potential risky transactions and unusual behaviour on an account.
 
 ## Routes ##
 
