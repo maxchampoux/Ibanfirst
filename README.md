@@ -10,20 +10,13 @@
 #### <a id="definition_entity"></a> Define an Entity ####
 
 An Entity can be both a Corporate (moral person) and an Individual (physical person) listed in the following couterparties:
-
-| Corporate |
-* lead 
-* client
-* organization
-* company 
-* supplier 
-* beneficiary 
-
-| Individual |
-* lead 
-* client
-* supplier 
-* beneficiary
+* Lead: Basic form of an Entity.
+* Customer: When coupled with a KYC (and validated by IbanFirst).
+* Customer's Client: When coupled with a KYCC (and validated by IbanFirst)
+* Shareholder: When coupled with a KYCS (and validated by IbanFirst).
+* Users: When coupled with a KYCU (and validated by IbanFirst).
+* Supplier: When coupled with an Account.
+* Beneficiary: When coupled with an Account.
 
 #### <a id="definition_kyc"></a> Define a KYC ####
 
