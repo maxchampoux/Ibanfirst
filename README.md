@@ -3,12 +3,13 @@
 ## Definitions ##
 
 * [Entity Defintion](#definition_entity)
-* [Contact Definition](#definition_contact)
 * [Account Definition](#definition_account)
 
 #### <a id="definition_entity"></a> Define an Entity ####
 
-An Entity is always a corporate (moral person) and can be one of the following types of counterparties:
+An Entity can be both a Coporate (moral person) and an Individual (physical person) listed in the following couterparties:
+
+| Corporate |
 * lead 
 * client
 * organization
@@ -16,13 +17,11 @@ An Entity is always a corporate (moral person) and can be one of the following t
 * supplier 
 * beneficiary 
 
-#### <a id="definition_contact"></a> Define a Contact ####
-
-A Contact is always an individual (physical person) and can be one of the following types of counterparties:
+| Individual |
 * lead 
 * client
 * supplier 
-* beneficiary 
+* beneficiary
 
 #### <a id="definition_account"></a> Define an Account ####
 
