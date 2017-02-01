@@ -24,8 +24,8 @@ Create a new company.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array[Shareholder Object](#shareholder_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array[Manager Object](#manager_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array[[Manager Object](#manager_object)] | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -43,8 +43,8 @@ POST /companies/
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array[Shareholder Object](#shareholder_object) | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | [Manager Object](#manager_object) | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -87,8 +87,8 @@ My object to follow where I am in the company creation process.
 | status | [status](#status) | The status of the company file. |
 | companyCreationDatas | [companyCreationDatas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
 | companyRegistrationDatas | [companyRegistrationDatas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
-| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -97,8 +97,8 @@ My object to follow where I am in the company creation process.
     "id": "NT4edA",
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array [{shareholdingStructure}]
-    "managerialStructure": Array [{managerialStructure}]
+    "shareholdingStructures": Array [{shareholder}]
+    "managerialStructures": Array [{manager}]
 }
 ```
 <hr />
@@ -111,7 +111,6 @@ Specific information required for submitting a company creation file.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| registeredNumber | String(100) | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
 | registeredName | String(100) | The legal name of the company to be created. |
 | commercialName | String(100) | The commercial name of the company to be created. |
 | tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
@@ -125,7 +124,6 @@ Specific information required for submitting a company creation file.
 
 ```js
 "companyCreationDatas": {
-    "registeredNumber": "81445561400010",
     "registeredName": "DJPAD",
     "commercialName": "null",
     "tag":"null",
@@ -139,6 +137,28 @@ Specific information required for submitting a company creation file.
 
 <hr />
 
+#### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
+
+Additional information required for releasing "capital social".
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| registeredNumber | String(100) | The unique legal identifier of the entity opening the account. |
+| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | The legal date of creation of the entity. |
+
+**Example:**
+
+```js
+"companyRegistrationDatas": {
+    "registeredParentNumber": "	814455614",
+    "registrationDate":"2015-11-04",
+}
+```
+
+<hr />
+
 #### <a id="shareholder_object"></a> Shareholder Object ####
 
 This object shows the shareholder ownership and detailed information.
@@ -146,17 +166,17 @@ This object shows the shareholder ownership and detailed information.
 | Field | Type | Description |
 |-------|------|-------------|
 | ownership | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
-| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders |
+| shareholderData | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholder. |
 
 **Example:**
 
 ```js
 "shareholderStructures": [
-    "shareholders": {
+    "shareholder": {
     	"ownership": 20%,
 	"shareholderData": {companyShareholdingDatas},
     },
-    "shareholders": {
+    "shareholder": {
     	"ownership": 80%,
 	"shareholderDatas": {individualShareholdingDatas},
     },
@@ -171,10 +191,15 @@ This object shows the shareholder ownership and detailed information.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| ownership | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
-| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders |
+| registeredName | String(100) | The legal name of the company to be created. |
+| commercialName | String(100) | The commercial name of the company to be created. |
+| tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
+| registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
+| commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
+| activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business of the company to be created. |
+| legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
 
-
+<hr />
 
 #### <a id="individualDatas_object"></a> Contact Object ####
 
