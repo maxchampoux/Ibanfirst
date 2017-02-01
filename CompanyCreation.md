@@ -85,8 +85,8 @@ My object to follow where I am in the company creation process.
 |-------|------|-------------|
 | id | [ID](#type_id) | The IF code identifying the company to be created. |
 | status | [status](#status) | The status of the company file. |
-| companyCreationDatas | [companyCreationDatas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
-| companyRegistrationDatas | [companyRegistrationDatas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
+| companyCreationDatas | [Company Creation Datas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
+| companyRegistrationDatas | [Company Registration Datas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
 | shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
@@ -116,8 +116,8 @@ Specific information required for submitting a company creation file.
 | tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
 | registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
 | commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
-| activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business of the company to be created. |
-| legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
+| activityCode | [NAFID](#NAF) | The code identifying the type of business of the company to be created. |
+| legalForm | [Legal Form](#legalForm) | The legal form of the company to be created.. |
 | authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
 
 **Example:**
@@ -146,7 +146,7 @@ Additional information required for releasing "capital social".
 | Field | Type | Description |
 |-------|------|-------------|
 | registeredNumber | String(100) | The unique legal identifier of the entity opening the account. |
-| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | The legal date of creation of the entity. |
+| registrationDate | [Date](#type_date) | The legal date of creation of the entity. |
 
 **Example:**
 
@@ -162,6 +162,8 @@ Additional information required for releasing "capital social".
 #### <a id="shareholder_object"></a> Shareholder Object ####
 
 This object shows the shareholder ownership and detailed information.
+
+**Object resources:**
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -189,6 +191,8 @@ This object shows the shareholder ownership and detailed information.
 
 This object shows the shareholder ownership and detailed information.
 
+**Object resources:**
+
 | Field | Type | Description |
 |-------|------|-------------|
 | registeredName | String(100) | The legal name of the company to be created. |
@@ -197,30 +201,29 @@ This object shows the shareholder ownership and detailed information.
 | registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
 | commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
 | activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business of the company to be created. |
-| legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
+| legalForm | [Legal Form](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
 
 <hr />
 
-#### <a id="individualDatas_object"></a> Contact Object ####
+#### <a id="individualShareholdingdataDatas_object"></a> Individual Shareholding Datas Object ####
 
-What we call a contact can be only an individual registered in France or Belgium.
-When an entity is specified as part of a JSON body, it is encoded as an object with the following fields:
+This object shows the shareholder ownership and detailed information.
 
 **Object resources:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id |  [ID](../conventions/formattingConventions.md#type_id) | The IF code identifying the contact. |
+| id |  [ID](#type_id) | The IF code identifying the contact. |
 | registeredNumber | String(100) | The unique legal identifier of the contact. |
 | registeredNCountry| String(100) | The registering country of the contact. |
 | registeredName | [Individual_Name Object](#individual_name_object) | The individual name of the contact. |
 | tag | String(100) | The customized name of the contact. |
 | address | [Address Object](#address_object) | The contact address. |
 | birthDate | [Date](#type_date) | The birthdate of the contact. |
-| phoneNumber | [phone Object](#phone_object)  | The phone number of the entity. |
-| position | [position Object](#position_object)  | The position of the entity. |
-| idProof | [idProof Object](#idProof_object)  | The url where the file is stored. |
-| addressProof | [addressProof Object](#addressProof_object)  | The url where the file is stored. |
+| phoneNumber | [Phone Object](#phone_object)  | The phone number of the entity. |
+| position | [Position Object](#position_object)  | The position of the entity. |
+| idProof | [Id Types](#idTypes_object)  | The url where the file is stored. |
+| addressProof | [Proof of Address Object](#addressProof_object)  | The url where the file is stored. |
 
 **Example:**
 
@@ -239,7 +242,6 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
 
 <hr />
 
-
 #### <a id="account_object"></a> Account Object ####
 
 When an Account is specified as part of a JSON body, it is encoded as an object with the following fields:
@@ -248,7 +250,6 @@ When an Account is specified as part of a JSON body, it is encoded as an object 
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id |  [ID](#type_id) | The code identifying the account. |
 | currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency of the account. |
 | tag |  String(50) | Custom reference of the account. |
 | accountNumber | String(40) | The code specifying the account (can be either an Iban or an account number). |
@@ -260,7 +261,6 @@ When an Account is specified as part of a JSON body, it is encoded as an object 
 
 ```js
 "account": {
-    "id": "NT4edA",
     "currency": "EUR",
     "tag": "My wallet account EUR",
     "accountNumber": "516981638516313513",
@@ -355,7 +355,7 @@ When an amount of currency is specified as part of a JSON body, it is encoded as
 
 | Field | Type | Description |
 |-------|------|-------------|
-| value  | [QuotedDecimal](../conventions/formattingConventions.md#type_quoteddecimal) | The quantity of the currency. |
+| value  | [Quoted Decimal](../conventions/formattingConventions.md#type_quoteddecimal) | The quantity of the currency. |
 | currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency related to the amount. |
 
 **Example:**
