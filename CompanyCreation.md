@@ -20,7 +20,7 @@ Create a new company.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| CorporateDatas | [Corporate Datas Object](#corporateDatas_object) | Required | Standard information on the projet and the future activity of the company. |
+| companyCreatedDatas | [Company Created Datas Object](#companyCreatedDatas_object) | Required | Standard information on the projet and the future activity of the company. |
 | shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
@@ -28,7 +28,7 @@ Create a new company.
 ```js
 POST /companies/
 {
-    Array {informations}
+    Array {companyCreatedDatas}
     Array {shareholdingStructure}
     Array {managerialStructure}
 }
@@ -37,10 +37,12 @@ POST /companies/
 
 # API Objects  
 
-* [Corporate Datas Object](#corporateDatas_object)
-* [IndividualDatas Object](#individualDatas_object)
+* [Company Created Datas Object](#companyCreatedDatas_object)
 * [shareholdingStructure](#shareholdingStructure_object)
+* [Company Shareholding Datas Object](#companyShareholdingDatas_object)
+* [Individual Shareholding Datas Object](#individualShareholdingDatas_object)
 * [managerialStructure](#managerialStructure_object)
+* [Individual Managerial Datas Object](#individualManagerialDatas_object)
 * [Account Object](#account_object)
 * [Phone Object](#phone_object)
 * [Individual Name Object](#individualName_object)
@@ -48,16 +50,16 @@ POST /companies/
 
 ## Details ##
 
-#### <a id="CorporateDatas_object"></a> Corporate Datas Object ####
+#### <a id="companyCreatedDatas_object"></a> Company Created Datas Object ####
 
-Information that can be associated to a company.
+Information linled to the company to be created.
 
 **Object resources:**
 
-| Field | Type | Description |
-|-------|------|-------------|
-| id |  [ID](../conventions/formattingConventions.md#type_id) | The IF code identifying the company to be created. |
-| registeredNumber | String(100) | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
+| Field | Type | Step | Description |
+|-------|------|-------|-------------|
+| id |  [ID](../conventions/formattingConventions.md#type_id) | 1 | The IF code identifying the company to be created. |
+| registeredNumber | String(100) | 4 | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
 | registeredName | String(100) | The legal name of the company to be created. |
 | commercialName | String(100) | The commercial name of the company to be created. |
 | tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
@@ -91,7 +93,7 @@ Information that can be associated to a company.
 <hr />
 
 
-#### <a id="contact_object"></a> Contact Object ####
+#### <a id="individualDatas_object"></a> Contact Object ####
 
 What we call a contact can be only an individual registered in France or Belgium.
 When an entity is specified as part of a JSON body, it is encoded as an object with the following fields:
