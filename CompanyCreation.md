@@ -21,16 +21,16 @@ Create a new company.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
 POST /companies/
 {
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array [{shareholdingStructure}]
-    "managerialStructure": Array [{managerialStructure}]
+    "shareholdingStructures": Array [{shareholdingStructures}]
+    "managerialStructures": Array [{managerialStructures}]
 }
 ```
 
@@ -40,8 +40,8 @@ POST /companies/
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -74,7 +74,7 @@ POST /companies/
 
 #### <a id="companies_object"></a> Companies Object ####
 
-Information linked to the company to be created.
+My object to follow where I am in the company creation process.
 
 **Object resources:**
 
@@ -84,6 +84,8 @@ Information linked to the company to be created.
 | status | [status](#status) | The status of the company file. |
 | companyCreationDatas | [companyCreationDatas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
 | companyRegistrationDatas | [companyRegistrationDatas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
+| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
