@@ -30,7 +30,7 @@ POST /companies/
 {
     Array {informations}
     Array {shareholdingStructure}
-    Array [ managerialStructure ]
+    Array {managerialStructure}
 }
 ```
 <hr />
