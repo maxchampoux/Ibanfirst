@@ -5,6 +5,9 @@
 | Route | Description |
 |-------|-------------|
 | [`POST /companies/`](#post_companies) | Create a new company |
+| [`PUT /companies/-{id}/confirm`](#put_companies) | Submit a new company |
+
+<hr />
 
 ## Details ##
 
@@ -60,7 +63,7 @@ POST /companies/
 
 * [Companies Object](#companies_object)
 * [Company Creation Datas Object](#companyCreationDatas_object)
-* [shareholdingStructure](#shareholdingStructure_object)
+* [shareholdingStructures](#shareholdingStructures_object)
 * [Company Shareholding Datas Object](#companyShareholdingDatas_object)
 * [Individual Shareholding Datas Object](#individualShareholdingDatas_object)
 * [managerialStructure](#managerialStructure_object)
@@ -135,6 +138,44 @@ Specific information required for submitting a company creation file.
 ```
 
 <hr />
+
+#### <a id="shareholdingStructures_object"></a> Shareholding Structures Object ####
+
+This object shows the shareholding structure of a company.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| shareholders | Array[Shareholder Object](#shareholder_object) | An entity that own a part of the company. |
+
+
+| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders. |
+
+| Field | Type | Description |
+|-------|------|-------------|
+| shareholdingPourcentage | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
+| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders |
+
+**Example:**
+
+```js
+"shareholderStructures": [
+    "shareholders": {
+    	"shareholderPourcentage": 20%,
+	"shareholderData": {companyShareholdingDatas},
+    },
+    "shareholders": {
+    	"shareholderPourcentage": 80%,
+	"shareholderDatas": {individualShareholdingDatas},
+    },
+}
+```
+
+<hr />
+
+#### <a id="companyShareholdingDatas_object"></a> Company Shareholding Datas Object ####
+
+
+
 
 #### <a id="individualDatas_object"></a> Contact Object ####
 
