@@ -20,7 +20,7 @@ Create a new company.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| companyCreatedDatas | [Company Created Datas Object](#companyCreatedDatas_object) | Required | Standard information on the projet and the future activity of the company. |
+| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
 | shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
@@ -28,16 +28,38 @@ Create a new company.
 ```js
 POST /companies/
 {
-    Array {companyCreatedDatas}
+    companyCreationDatas
     Array {shareholdingStructure}
     Array {managerialStructure}
 }
 ```
 <hr />
 
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| Object.id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
+| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
+| shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+
+**Example:**
+```js
+
+{
+    "id"
+    companyCreationDatas
+    Array {shareholdingStructure}
+    Array {managerialStructure}
+}
+```
+<hr />
+
+
 # API Objects  
 
-* [Company Created Datas Object](#companyCreatedDatas_object)
+* [Company Creation Datas Object](#companyCreationDatas_object)
 * [shareholdingStructure](#shareholdingStructure_object)
 * [Company Shareholding Datas Object](#companyShareholdingDatas_object)
 * [Individual Shareholding Datas Object](#individualShareholdingDatas_object)
@@ -50,16 +72,16 @@ POST /companies/
 
 ## Details ##
 
-#### <a id="companyCreatedDatas_object"></a> Company Created Datas Object ####
+#### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
 
-Information linled to the company to be created.
+Information linked to the company to be created.
 
 **Object resources:**
 
-| Field | Type | Step | Description |
-|-------|------|-------|-------------|
-| id |  [ID](../conventions/formattingConventions.md#type_id) | 1 | The IF code identifying the company to be created. |
-| registeredNumber | String(100) | 4 | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
+| Field | Type | Description |
+|-------|------|-------------|
+| id |  [ID](../conventions/formattingConventions.md#type_id) | The IF code identifying the company to be created. |
+| registeredNumber | String(100) | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
 | registeredName | String(100) | The legal name of the company to be created. |
 | commercialName | String(100) | The commercial name of the company to be created. |
 | tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
@@ -91,7 +113,6 @@ Information linled to the company to be created.
 ```
 
 <hr />
-
 
 #### <a id="individualDatas_object"></a> Contact Object ####
 
