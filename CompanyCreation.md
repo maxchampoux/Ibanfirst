@@ -20,7 +20,7 @@ Create a new company.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| CorporateDatas | [Corporate Datas Object](#corporateDatas_object)) | Required | Standard information on the projet and the future activity of the company. |
+| CorporateDatas | [Corporate Datas Object](#corporateDatas_object) | Required | Standard information on the projet and the future activity of the company. |
 | shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
@@ -28,8 +28,8 @@ Create a new company.
 ```js
 POST /companies/
 {
-    Array [ informations ]
-    Array [ shareholdingStructure ]
+    Array {informations}
+    Array {shareholdingStructure}
     Array [ managerialStructure ]
 }
 ```
@@ -48,27 +48,26 @@ POST /companies/
 
 ## Details ##
 
-#### <a id="CorporateDatas_object"></a> Entity Object ####
+#### <a id="CorporateDatas_object"></a> Corporate Datas Object ####
 
-What we call an Entity can be only an company incorporated in France or Belgium.
-When an entity is specified as part of a JSON body, it is encoded as an object with the following fields:
+Information that can be associated to a company.
 
 **Object resources:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id |  [ID](../conventions/formattingConventions.md#type_id) | The IF code identifying the entity. |
-| registeredParentNumber | String(100) | The unique legal identifier of the entity mother house. |
-| registeredNumber | String(100) | The unique legal identifier of the entity opening the account. |
-| registeredName | String(100) | The legal name of the entity. |
-| commercialName | String(100) | The commercial name of the entity. |
-| tag | String(100) | The customized name of the entity. |
-| address | [Address Object](#address_object) | The entity address. |
-| activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business. |
-| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | The legal date of creation of the entity. |
-| legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the entity. |
-| authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital. |
-| phoneNumber | [phone Object](#phone_object)  | The phone number of the entity. |
+| id |  [ID](../conventions/formattingConventions.md#type_id) | The IF code identifying the company to be created. |
+| registeredNumber | String(100) | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
+| registeredName | String(100) | The legal name of the company to be created. |
+| commercialName | String(100) | The commercial name of the company to be created. |
+| tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
+| registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
+| commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
+| activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business of the company to be created. |
+| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | The legal date of creation of the company once registered with the appropriate legal institution. |
+| legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
+| authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
+| stepCreation | [stepCreation Object](#stepCreation_object)  | The amount in shareholding capital as mentionned in the status. |
 
 **Example:**
 
@@ -85,7 +84,7 @@ When an entity is specified as part of a JSON body, it is encoded as an object w
     "registrationDate":"2015-11-04",
     "legalForm":"SARL unipersonnelle",
     "authorizedCapital":{amount},
-    "phoneNumber":{phone},
+    "stepCreation":{stepCreation}
 }
 ```
 
