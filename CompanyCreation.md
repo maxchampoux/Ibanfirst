@@ -84,8 +84,8 @@ My object to follow where I am in the company creation process.
 | status | [status](#status) | The status of the company file. |
 | companyCreationDatas | [companyCreationDatas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
 | companyRegistrationDatas | [companyRegistrationDatas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
-| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
