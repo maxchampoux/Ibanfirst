@@ -1,0 +1,17 @@
+# Company Creation - API Service
+
+## Definitions ##
+
+* [Shareholding Structure Defintion](#definition_shareholdingStructure)
+* [KYC Definition](#definition_kyc)
+* [Account Definition](#definition_account)
+
+
+#### <a id="definition_shareholdingStructure"></a> Defining the Shareholding Structure ####
+
+Know Your Customer (KYC) is the process identifying and verifying the identity of an Entity.
+Several level of KYC may be required depending on the type of relationship between IbanFirst and the Entity:
+* Know Your Customer (KYC): Standard Entity Identification Procedure for direct clients.
+* Know your Customers' Shareholder (KYCS): Specific Entity Identification Procedure for shareholders of IbanFirst's direct clients. 
+* Know your Customers' Users (KYCU): Specific Entity Identification Procedure for users of IbanFirst's direct clients. 
+* Know Your Customers' Counterparty (KYCC) : Third-party Customer Identification Procedure for indirect clients of licensed IbanFirst's direct clients.
