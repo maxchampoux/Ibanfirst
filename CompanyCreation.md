@@ -28,18 +28,17 @@ Create a new company.
 ```js
 POST /companies/
 {
-    companyCreationDatas
-    Array {shareholdingStructure}
-    Array {managerialStructure}
+    "companyCreationDatas": {companyCreationDatas}
+    "shareholdingStructures": Array [{shareholdingStructure}]
+    "managerialStructure": Array [{managerialStructure}]
 }
 ```
-<hr />
 
 **Returns:**
 
 | Field | Type | Description |
 |-------|------|-------------|
-| Object.id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
+| id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
 | shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
@@ -47,18 +46,19 @@ POST /companies/
 **Example:**
 ```js
 
-{
-    "id"
-    companyCreationDatas
-    Array {shareholdingStructure}
-    Array {managerialStructure}
+"companies": {
+    "id": "NT4edA",
+    "status": "En attente de dépot de capital social",
+    "companyCreationDatas": {companyCreationDatas}
+    "shareholdingStructures": Array [{shareholdingStructure}]
+    "managerialStructure": Array [{managerialStructure}]
 }
 ```
 <hr />
 
-
 # API Objects  
 
+* [Companies Object](#companies_object)
 * [Company Creation Datas Object](#companyCreationDatas_object)
 * [shareholdingStructure](#shareholdingStructure_object)
 * [Company Shareholding Datas Object](#companyShareholdingDatas_object)
@@ -72,7 +72,7 @@ POST /companies/
 
 ## Details ##
 
-#### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
+#### <a id="companies_object"></a> Companies Object ####
 
 Information linked to the company to be created.
 
@@ -80,7 +80,31 @@ Information linked to the company to be created.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id |  [ID](../conventions/formattingConventions.md#type_id) | The IF code identifying the company to be created. |
+| id | [ID](#type_id) | The IF code identifying the company to be created. |
+| status | [status](#status) | The status of the company file. |
+| companyCreationDatas | [companyCreationDatas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
+| companyRegistrationDatas | [companyRegistrationDatas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
+
+**Example:**
+```js
+
+"companies": {
+    "id": "NT4edA",
+    "status": "En attente de dépot de capital social",
+    "companyCreationDatas": {companyCreationDatas}
+    "shareholdingStructures": Array [{shareholdingStructure}]
+    "managerialStructure": Array [{managerialStructure}]
+}
+```
+
+#### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
+
+Specific information required for submitting a company creation file.
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
 | registeredNumber | String(100) | The registration number that must be provided after registration of the company to be created with the appropriate legal institution. |
 | registeredName | String(100) | The legal name of the company to be created. |
 | commercialName | String(100) | The commercial name of the company to be created. |
@@ -88,10 +112,8 @@ Information linked to the company to be created.
 | registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
 | commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
 | activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business of the company to be created. |
-| registrationDate | [Date](../conventions/formattingConventions.md#type_date) | The legal date of creation of the company once registered with the appropriate legal institution. |
 | legalForm | [legalForm](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
 | authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
-| stepCreation | [stepCreation Object](#stepCreation_object)  | The amount in shareholding capital as mentionned in the status. |
 
 **Example:**
 
