@@ -42,9 +42,9 @@ POST /companies/
 | Field | Type | Description |
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
-| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
+| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
