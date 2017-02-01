@@ -24,16 +24,16 @@ Create a new company.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array[Shareholder Object](#shareholder_object) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array[Manager Object](#manager_object) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
 POST /companies/
 {
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array [{shareholdingStructures}]
-    "managerialStructures": Array [{managerialStructures}]
+    "shareholdingStructures": Array [{shareholder}]
+    "managerialStructures": Array [{manager}]
 }
 ```
 
@@ -43,8 +43,8 @@ POST /companies/
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | [Shareholding Structures Object](#shareholdingStructures_object) | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | [Managerial Structures Object](#managerialStructures_object) | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array[Shareholder Object](#shareholder_object) | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | [Manager Object](#manager_object) | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -53,8 +53,8 @@ POST /companies/
     "id": "NT4edA",
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array [{shareholdingStructure}]
-    "managerialStructure": Array [{managerialStructure}]
+    "shareholdingStructures": Array[{shareholder}]
+    "managerialStructure": Array [{manager}]
 }
 ```
 <hr />
@@ -63,9 +63,9 @@ POST /companies/
 
 * [Companies Object](#companies_object)
 * [Company Creation Datas Object](#companyCreationDatas_object)
-* [shareholdingStructures](#shareholdingStructures_object)
-* [Company Shareholding Datas Object](#companyShareholdingDatas_object)
-* [Individual Shareholding Datas Object](#individualShareholdingDatas_object)
+* [shareholder](#shareholder_object)
+* [Company Shareholder Datas Object](#companyShareholderDatas_object)
+* [Individual Shareholder Datas Object](#individualShareholderDatas_object)
 * [managerialStructure](#managerialStructure_object)
 * [Individual Managerial Datas Object](#individualManagerialDatas_object)
 * [Account Object](#account_object)
@@ -139,20 +139,13 @@ Specific information required for submitting a company creation file.
 
 <hr />
 
-#### <a id="shareholdingStructures_object"></a> Shareholding Structures Object ####
+#### <a id="shareholder_object"></a> Shareholder Object ####
 
-This object shows the shareholding structure of a company.
-
-| Field | Type | Description |
-|-------|------|-------------|
-| shareholders | Array[Shareholder Object](#shareholder_object) | An entity that own a part of the company. |
-
-
-| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders. |
+This object shows the shareholder ownership and detailed information.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| shareholdingPourcentage | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
+| ownership | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
 | shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders |
 
 **Example:**
@@ -160,11 +153,11 @@ This object shows the shareholding structure of a company.
 ```js
 "shareholderStructures": [
     "shareholders": {
-    	"shareholderPourcentage": 20%,
+    	"ownership": 20%,
 	"shareholderData": {companyShareholdingDatas},
     },
     "shareholders": {
-    	"shareholderPourcentage": 80%,
+    	"ownership": 80%,
 	"shareholderDatas": {individualShareholdingDatas},
     },
 }
@@ -174,6 +167,12 @@ This object shows the shareholding structure of a company.
 
 #### <a id="companyShareholdingDatas_object"></a> Company Shareholding Datas Object ####
 
+This object shows the shareholder ownership and detailed information.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| ownership | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
+| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholders |
 
 
 
