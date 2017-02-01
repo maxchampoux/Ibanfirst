@@ -98,6 +98,7 @@ My object to follow where I am in the company creation process.
     "managerialStructure": Array [{managerialStructure}]
 }
 ```
+<hr />
 
 #### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
 
@@ -120,19 +121,16 @@ Specific information required for submitting a company creation file.
 **Example:**
 
 ```js
-"entity": {
-    "id": "ND4ue2",
-    "registeredParentNumber": "	814455614",
+"companyCreationDatas": {
     "registeredNumber": "81445561400010",
     "registeredName": "DJPAD",
     "commercialName": "null",
     "tag":"null",
-    "address": {address},
+    "registeredAddress": {address},
+    "commercialAddress": {address},
     "activityCode":"6201Z",
-    "registrationDate":"2015-11-04",
     "legalForm":"SARL unipersonnelle",
     "authorizedCapital":{amount},
-    "stepCreation":{stepCreation}
 }
 ```
 
