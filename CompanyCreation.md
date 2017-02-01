@@ -23,3 +23,14 @@ Create a new company.
 | informations | [Informations Object](#informations_object)) | Required | Standard information on the projet and the future activity of the company. |
 | shareholdingStructure | String(100) | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructure | String(100) | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+
+**Example:**
+```js
+POST /companies/
+{
+    Array [ informations ]
+    Array [ shareholdingStructure ]
+    Array [ managerialStructure ]
+}
+```
+<hr />
