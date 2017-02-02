@@ -337,7 +337,7 @@ The Founder object.
 |-------|------|-------------|
 | registeredNumber | String(100) | The unique legal identifier of the contact. |
 | registeredCountry| String(100) | The registering country of the contact. |
-| registeredName | [Individual_Name Object](#individual_name_object) | The individual name of the contact. |
+| registeredName | [Individual Name Object](#individual_name_object) | The individual name of the contact. |
 | tag | String(100) | The customized name of the contact. |
 | address | [Address Object](#address_object) | The contact address. |
 | birthDate | [Date](#type_date) | The birthdate of the contact. |
@@ -436,7 +436,7 @@ When a phone number is specified as part of a JSON body, it is encoded as an obj
 | Field | Type | Description |
 |-------|------|-------------|
 | first | String(35) | The individual's first name. Truncated after the first 35 characters. |
-| first | String(35) | The individual's middle name. Truncated after the first 35 characters. |
+| middle | String(35) | The individual's middle name. Truncated after the first 35 characters. |
 | last | String(35) | The individual's last name. Truncated after the first 35 characters. |
 
 **Example:**
