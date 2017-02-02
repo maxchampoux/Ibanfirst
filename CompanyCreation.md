@@ -78,7 +78,7 @@ POST /companies/
 **Example:**
 ```js
 "companies": {
-    "id": "NT4edA",
+    "id": NT4edA,
     "status": "En attente de confirmation",
     "companyCreationDatas": {companyCreationDatas}
     "shareholdingStructures": Array[{shareholder}]
@@ -119,7 +119,7 @@ PUT /companies/NT4edA/confirm
 **Example:**
 ```js
 "companies": {
-    "id": "NT4edA",
+    "id": NT4edA,
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas},
     "shareholdingStructures": Array[{shareholder}],
@@ -170,7 +170,7 @@ My object to follow where I am in the company creation process.
 **Example:**
 ```js
 "companies": {
-    "id": "NT4edA",
+    "id": NT4edA,
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas}
     "shareholdingStructures": Array [{shareholder}]
@@ -315,7 +315,7 @@ This object shows the shareholder ownership and detailed information.
 
 ```js
 "contact": {
-    "id": "ND4ue2",
+    "id": ND4ue2,
     "registeredNumber": "81445561400010",
     "registeredName": {individual_name},
     "tag":"null",
