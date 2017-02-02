@@ -7,7 +7,7 @@
 | [`POST /companies/`](#post_companies) | Create a new company |
 | [`PUT /companies/-{id}/confirm`](#put_companies) | Submit a new company |
 | [`GET /companies/-{id}/`](#get_companies) | Get the status of a company creation |
-| [`PUT /companies/-{id}//documents/`](#putDocuments_companies) | Submit documents to a company creation |
+| [`PUT /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
 
 <hr />
 
