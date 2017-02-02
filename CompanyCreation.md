@@ -303,7 +303,7 @@ This object shows the shareholder ownership and detailed information.
 |-------|------|-------------|
 | registeredNumber | String(100) | The unique legal identifier of the contact. |
 | registeredCountry| String(100) | The registering country of the contact. |
-| registeredName | [Individual_Name Object](#individual_name_object) | The individual name of the contact. |
+| registeredName | [Individual Name Object](#individual_name_object) | The individual name of the contact. |
 | tag | String(100) | The customized name of the contact. |
 | address | [Address Object](#address_object) | The contact address. |
 | birthDate | [Date](#type_date) | The birthdate of the contact. |
@@ -317,7 +317,7 @@ This object shows the shareholder ownership and detailed information.
 "contact": {
     "id": ND4ue2,
     "registeredNumber": "81445561400010",
-    "registeredName": {individual_name},
+    "registeredName": {individualName},
     "tag":"null",
     "address": {address},
     "birthDate":"1980-11-04",
