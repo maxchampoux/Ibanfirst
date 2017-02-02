@@ -70,7 +70,7 @@ POST /companies/
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
+| id | [ID](#type_id) | The internal reference for this company creation. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
 | shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
