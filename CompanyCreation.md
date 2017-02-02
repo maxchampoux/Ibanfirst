@@ -87,15 +87,23 @@ PUT /companies/NT4edA/confirm
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
 | shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
 "companies": {
     "id": "NT4edA",
     "status": "En attente de dépot de capital social",
-    "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array[{shareholder}]
-    "managerialStructure": Array [{manager}]
+    "companyCreationDatas": {companyCreationDatas},
+    "shareholdingStructures": Array[{shareholder}],
+    "managerialStructure": Array [{manager}],
+    "accounts": {
+	    "currency": "EUR",
+	    "tag": "[CompanyName] [En cours de création]",
+	    "accountNumber": "516981638516313513",
+	    "holder":{beneficiary},
+	    "holderBank":{beneficiaryBank},
+    },
 }
 ```
 <hr />
@@ -131,7 +139,7 @@ My object to follow where I am in the company creation process.
 | companyRegistrationDatas | [Company Registration Datas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
 | shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
+| accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
@@ -141,13 +149,7 @@ My object to follow where I am in the company creation process.
     "companyCreationDatas": {companyCreationDatas}
     "shareholdingStructures": Array [{shareholder}]
     "managerialStructures": Array [{manager}]
-    "account": {
-	    "currency": "EUR",
-	    "tag": "[CompanyName] [En cours de création]",
-	    "accountNumber": "516981638516313513",
-	    "holder":{beneficiary},
-	    "holderBank":{beneficiaryBank},
-    }	    
+    "account": {account},	    
 }
 ```
 <hr />
