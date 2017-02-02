@@ -41,14 +41,53 @@ POST /companies/
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | [ID](../conventions/formattingConventions.md#type_id) | The  refering the financial movement. |
+| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
 | shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
+"companies": {
+    "id": "NT4edA",
+    "status": "En attente de confirmation",
+    "companyCreationDatas": {companyCreationDatas}
+    "shareholdingStructures": Array[{shareholder}]
+    "managerialStructure": Array [{manager}]
+}
+```
+<hr />
 
+#### <a id="put_companies"></a> Submit a new company ####
+
+```
+Method: PUT 
+URL: /companies/-{id}/confirm
+```
+Submit a new company.
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| id | [ID](../conventions/formattingConventions.md#type_id) | Required | The internal reference for this company creation. |
+
+**Example:**
+```js
+PUT /companies/NT4edA/confirm
+```
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
+| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
+| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+
+**Example:**
+```js
 "companies": {
     "id": "NT4edA",
     "status": "En attente de dépot de capital social",
@@ -59,11 +98,12 @@ POST /companies/
 ```
 <hr />
 
+<hr />
 # API Objects  
 
 * [Companies Object](#companies_object)
 * [Company Creation Datas Object](#companyCreationDatas_object)
-* [shareholder](#shareholder_object)
+* [Shareholder Object](#shareholder_object)
 * [Company Shareholder Datas Object](#companyShareholderDatas_object)
 * [Individual Shareholder Datas Object](#individualShareholderDatas_object)
 * [managerialStructure](#managerialStructure_object)
@@ -89,16 +129,23 @@ My object to follow where I am in the company creation process.
 | companyRegistrationDatas | [Company Registration Datas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
 | shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array[[Manager Object](#manager_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
-
 "companies": {
     "id": "NT4edA",
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas}
     "shareholdingStructures": Array [{shareholder}]
     "managerialStructures": Array [{manager}]
+    "account": {
+	    "currency": "EUR",
+	    "tag": "[CompanyName] [En cours de création]",
+	    "accountNumber": "516981638516313513",
+	    "holder":{beneficiary},
+	    "holderBank":{beneficiaryBank},
+    }	    
 }
 ```
 <hr />
@@ -119,6 +166,7 @@ Specific information required for submitting a company creation file.
 | activityCode | [NAFID](#NAF) | The code identifying the type of business of the company to be created. |
 | legalForm | [Legal Form](#legalForm) | The legal form of the company to be created.. |
 | authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
+| documents | Array[[Document Object](#document_object)] | The required documents for creating a company. |
 
 **Example:**
 
@@ -132,6 +180,15 @@ Specific information required for submitting a company creation file.
     "activityCode":"6201Z",
     "legalForm":"SARL unipersonnelle",
     "authorizedCapital":{amount},
+    "documents": Array[
+    	"document": {
+		"type": "article of association",
+		"tag": "NameOfTheDocument",
+	}
+	"document": {
+		"type": "kbis",
+		"tag": "NameOfTheDocument",
+	}
 }
 ```
 
@@ -253,9 +310,8 @@ When an Account is specified as part of a JSON body, it is encoded as an object 
 | currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency of the account. |
 | tag |  String(50) | Custom reference of the account. |
 | accountNumber | String(40) | The code specifying the account (can be either an Iban or an account number). |
-| correspondentBank | [ID](#type_id) | The intermediary bank details, used to reach the beneficiary bank. |
 | holderBank | [ID](#type_id) | The recipient bank details, holding the account. |
-| holder | [Entity Object](#entity_object) | The recipient details, owner of the account. |
+| holder | [holder Object](#holder_object) | The recipient details, owner of the account. If the company is in pending creation, then [pending creation] will be added aside the owner name. |
 
 **Example:**
 
