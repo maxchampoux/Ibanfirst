@@ -53,16 +53,16 @@ Create a new company.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array[[Founder Object](#founder_object)] | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array<[Founder Object](#founder_object)> | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
 POST /companies/
 {
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array [{shareholder}]
-    "managerialStructures": Array [{founder}]
+    "shareholdingStructures": [{shareholder}]
+    "managerialStructures": [{founder}]
 }
 ```
 
@@ -72,8 +72,8 @@ POST /companies/
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array[[Founder Object](#founder_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -81,8 +81,8 @@ POST /companies/
     "id": NT4edA,
     "status": "En attente de confirmation",
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array[{shareholder}]
-    "managerialStructure": Array [{founder}]
+    "shareholdingStructures": [{shareholder}]
+    "managerialStructure": [{founder}]
 }
 ```
 <hr />
@@ -112,8 +112,8 @@ PUT /companies/NT4edA/confirm
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array[[MFounder Object](#founderr_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
@@ -122,8 +122,8 @@ PUT /companies/NT4edA/confirm
     "id": NT4edA,
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas},
-    "shareholdingStructures": Array[{shareholder}],
-    "managerialStructure": Array [{founder}],
+    "shareholdingStructures": [{shareholder}],
+    "managerialStructure": [{founder}],
     "accounts": {
 	    "currency": "EUR",
 	    "tag": "[CompanyName] [En cours de création]",
@@ -163,8 +163,8 @@ My object to follow where I am in the company creation process.
 | status | [status](#status) | The status of the company file. |
 | companyCreationDatas | [Company Creation Datas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
 | companyRegistrationDatas | [Company Registration Datas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
-| shareholdingStructures | Array[[Shareholder Object](#shareholder_object)] | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array[[Founder Object](#founder_object)] | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
@@ -173,8 +173,8 @@ My object to follow where I am in the company creation process.
     "id": NT4edA,
     "status": "En attente de dépot de capital social",
     "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": Array [{shareholder}]
-    "managerialStructures": Array [{founder}]
+    "shareholdingStructures": [{shareholder}]
+    "managerialStructures": [{founder}]
     "account": {account},	    
 }
 ```
@@ -195,8 +195,8 @@ Specific information required for submitting a company creation file.
 | commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
 | activityCode | [NAFID](#NAF) | The code identifying the type of business of the company to be created. |
 | legalForm | [Legal Form](#legalForm) | The legal form of the company to be created.. |
-| authorizedCapital | [amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
-| documents | Array[[Document Object](#document_object)] | The required documents for creating a company. |
+| authorizedCapital | [Amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
+| documents | Array<[Document Object](#document_object)> | The required documents for creating a company. |
 
 **Example:**
 
@@ -210,7 +210,7 @@ Specific information required for submitting a company creation file.
     "activityCode":"6201Z",
     "legalForm":"SARL unipersonnelle",
     "authorizedCapital":{amount},
-    "documents": Array[
+    "documents": [
     	"document": {
 		"type": "article of association",
 		"tag": "NameOfTheDocument",
@@ -219,6 +219,7 @@ Specific information required for submitting a company creation file.
 		"type": "kbis",
 		"tag": "NameOfTheDocument",
 	}
+    ]
 }
 ```
 
@@ -358,7 +359,7 @@ When an Account is specified as part of a JSON body, it is encoded as an object 
 | tag |  String(50) | Custom reference of the account. |
 | accountNumber | String(40) | The code specifying the account (can be either an Iban or an account number). |
 | holderBank | [ID](#type_id) | The recipient bank details, holding the account. |
-| holder | [holder Object](#holder_object) | The recipient details, owner of the account. If the company is in pending creation, then [pending creation] will be added aside the owner name. |
+| holder | [Holder Object](#holder_object) | The recipient details, owner of the account. If the company is in pending creation, then [pending creation] will be added aside the owner name. |
 
 **Example:**
 
