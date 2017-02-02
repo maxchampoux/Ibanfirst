@@ -256,7 +256,7 @@ This object shows the shareholder ownership and detailed information.
 | Field | Type | Description |
 |-------|------|-------------|
 | ownership | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
-| shareholderData | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholder. |
+| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholder. |
 
 
 **Example:**
