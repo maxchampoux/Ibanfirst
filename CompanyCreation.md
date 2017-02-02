@@ -1,5 +1,32 @@
 # Company Creation - API Service
 
+## GETTING STARTED WITH IBANFIRST REST COMPANY CREATION API ##
+
+#### 1. Create your company project ####
+
+Please use the following service to create your company project :
+```
+POST /companies/
+```
+
+#### 2. Submit your project ####
+
+```
+PUT /companies/-{id}/confirm
+```
+
+Until your project is not complete, the following service will return errors mentionning the missings information :
+When your project is complete, this service will return an IBAN for the deposit of the "Capital Social" of your future company.
+
+#### 3. Know where you are in the process ####
+
+```
+GET /companies/-{id}/
+```
+You want to know if all shareholders has deposited funds to the IBAN? You can use this service for having more information on the status of your project.
+
+<hr />
+
 ## Routes ##
 
 | Route | Description |
