@@ -6,6 +6,8 @@
 |-------|-------------|
 | [`POST /companies/`](#post_companies) | Create a new company |
 | [`PUT /companies/-{id}/confirm`](#put_companies) | Submit a new company |
+| [`GET /companies/-{id}/`](#get_companies) | Get the status of a company creation |
+| [`PUT /companies/-{id}//documents/`](#putDocuments_companies) | Submit documents to a company creation |
 
 <hr />
 
@@ -194,7 +196,7 @@ Specific information required for submitting a company creation file.
 
 <hr />
 
-#### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
+#### <a id="companyRegistrationDatas_object"></a> Company Registration Datas Object ####
 
 Additional information required for releasing "capital social".
 
@@ -270,17 +272,15 @@ This object shows the shareholder ownership and detailed information.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id |  [ID](#type_id) | The IF code identifying the contact. |
 | registeredNumber | String(100) | The unique legal identifier of the contact. |
-| registeredNCountry| String(100) | The registering country of the contact. |
+| registeredCountry| String(100) | The registering country of the contact. |
 | registeredName | [Individual_Name Object](#individual_name_object) | The individual name of the contact. |
 | tag | String(100) | The customized name of the contact. |
 | address | [Address Object](#address_object) | The contact address. |
 | birthDate | [Date](#type_date) | The birthdate of the contact. |
 | phoneNumber | [Phone Object](#phone_object)  | The phone number of the entity. |
 | position | [Position Object](#position_object)  | The position of the entity. |
-| idProof | [Id Types](#idTypes_object)  | The url where the file is stored. |
-| addressProof | [Proof of Address Object](#addressProof_object)  | The url where the file is stored. |
+
 
 **Example:**
 
@@ -425,6 +425,27 @@ When an amount of currency is specified as part of a JSON body, it is encoded as
 
 <hr />
 
+
+#### <a id="document_object"></a> Document Object ####
+
+The list of document that can be submitted for a shareholder/ individual.
+
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| idProof | [Id Types](#idTypes_object)  | The url where the file is stored. |
+| addressProof | [Proof of Address Object](#addressProof_object)  | The url where the file is stored. |
+
+**Example:**
+
+```js
+TBD
+```
+
+
+<hr />
 # Formatting Conventions #  
 
 ### <a id="type_date"></a> Date Type ###
