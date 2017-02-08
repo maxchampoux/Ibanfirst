@@ -81,18 +81,19 @@ We are so sad you are doing that. See you next time!
 | [`GET /companies/-{id}/`](#get_companies) | Get the status of my project |
 | [`DELETE /companies/-{id}/`](#delete_companies) | Delete information on my project |
 | [`POST /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
+| [`DELETE /companies/-{id}/documents/-{id}`](#putDocuments_companies) | Submit documents to a company creation |
 
 <hr />
 
 ## Details ##
 
-#### <a id="post_companies"></a> Create a new company ####
+#### <a id="post_companies"></a> Start a company creation project ####
 
 ```
 Method: POST 
 URL: /companies/
 ```
-Create a new company.
+You want to create your company? That's great! Start you project now, minimum information needed to open a file.
 
 **Parameters:**
 
@@ -186,6 +187,7 @@ PUT /companies/NT4edA/confirm
 
 * [Companies Object](#companies_object)
 * [Company Creation Datas Object](#companyCreationDatas_object)
+* [Company Submit Datas Object](#companySubmitDatas_object)
 * [Shareholder Object](#shareholder_object)
 * [Company Shareholder Datas Object](#companyShareholderDatas_object)
 * [Individual Shareholder Datas Object](#individualShareholderDatas_object)
@@ -227,6 +229,52 @@ My object to follow where I am in the company creation process.
 <hr />
 
 #### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
+
+Specific information required for opening a company creation file.
+
+**Object resources:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| registeredName | String(100) | The legal name of the company to be created. |
+| commercialName | String(100) | The commercial name of the company to be created. |
+| tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
+| registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
+| commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
+| activityCode | [NAFID](#NAF) | The code identifying the type of business of the company to be created. |
+| legalForm | [Legal Form](#legalForm) | The legal form of the company to be created.. |
+| authorizedCapital | [Amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
+| documents | Array<[Document Object](#document_object)> | The required documents for creating a company. |
+
+**Example:**
+
+```js
+"companyCreationDatas": {
+    "registeredName": "DJPAD",
+    "commercialName": "null",
+    "tag":"null",
+    "registeredAddress": {address},
+    "commercialAddress": {address},
+    "activityCode":"6201Z",
+    "legalForm":"SARL unipersonnelle",
+    "authorizedCapital":{amount},
+    "documents": [
+    	"document": {
+		"type": "article of association",
+		"tag": "NameOfTheDocument",
+	}
+	"document": {
+		"type": "kbis",
+		"tag": "NameOfTheDocument",
+	}
+    ]
+}
+```
+
+<hr />
+
+
+#### <a id="companySubmitDatas_object"></a> Company Creation Datas Object ####
 
 Specific information required for submitting a company creation file.
 
