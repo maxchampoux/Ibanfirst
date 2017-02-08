@@ -195,6 +195,51 @@ Ok well, at this stage we will require some data and documents. By submitting yo
 **Example:**
 ```js
 PUT /companies/NT4edA/confirm
+{
+    "companyCreationDatas": {
+    	"activityCode": null,
+	"legalForm": null,
+	"authorizedCapital": {
+		"value": "100000.00",
+		"amount": "EUR",
+	"documents": {
+		"document": {
+			"type": "businessPlan",
+			"id": "Rocket Startup - Business Plan",
+		},
+		"document": {
+			"type": "articleOfAssociation",
+			"id": "Rocket Startup - Projets de Statuts",
+		},
+	},
+    "shareholdingStructures": {
+    	"shareholders": {
+		"type": "Individual",
+		"isMainFounder": 1,
+		"ownershipPourcentage": 100%,
+		"registeredName": {
+			"firstName": "Maxime",
+			"middleName": null,
+			"lastName": "Champoux",
+		}
+		"registeredCountry": FR,
+		"registeredNumber": null,
+		"tag": null,
+		"email": "mch@ibanfirst.com",
+		"birthDate": null,
+		"phoneNumber": null,		
+		"position": "Astronaute",
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "Maxime Champoux - CNI",
+			},
+		}
+	},
+    },		
+},
+
+		"ownershipPourcentage": 100%,
 ```
 
 **Returns:**
@@ -248,6 +293,44 @@ URL: /companies/-{id}/certificateDeposit
 ```
 At this stage we will require more data and documents. 
 By submitting your project, you have to proceed to the review of your project and the deposits. When we are fine, we will move the status to "certificate of deposit ready" and you will be able to retrieve your certificate as a document to follow the process of registration of you company with the appropriate legal institution. 
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| id | [ID](../conventions/formattingConventions.md#type_id) | Required | The internal reference for this company creation. |
+
+**Example:**
+```js
+PUT /companies/NT4edA/certificateDeposit
+```
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
+| status | [Status](#type_status) | The stage of your company creation project. |
+
+**Example:**
+```js
+"companies": {
+    "id": NT4edA,
+    "status": "Project being reviewed",
+}
+```
+<hr />
+
+| [`PUT /companies/-{id}/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
+
+
+#### <a id="put_companiesCertificateIncorporation"></a> Upload your Kbis ####
+
+```
+Method: PUT 
+URL: /companies/-{id}/certificateIncorporation
+```
+At this stage, basically your company should be registered. Therefore, we will require the registration infromation and your kbis so that we can release a part or the totality of your deposit.  
 
 **Parameters:**
 
