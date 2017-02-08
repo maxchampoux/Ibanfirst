@@ -107,7 +107,11 @@ You want to create your company? That's great! Start you project now, minimum in
 ```js
 POST /companies/
 {
-    "companyCreationDatas": {companyCreationDatas}
+    "companyCreationDatas": {
+    	"registeredName": "DJPAD",
+	"registeredAddress": {address},
+	
+	}
     "shareholdingStructures": [{shareholder}]
     "managerialStructures": [{founder}]
 }
@@ -118,6 +122,7 @@ POST /companies/
 | Field | Type | Description |
 |-------|------|-------------|
 | id | [ID](#type_id) | The internal reference for this company creation. |
+| status | [Status](#type_status) | The stage of your company creation project. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
 | shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 | managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
@@ -126,7 +131,7 @@ POST /companies/
 ```js
 "companies": {
     "id": NT4edA,
-    "status": "En attente de confirmation",
+    "status": "Not yet submitted",
     "companyCreationDatas": {companyCreationDatas}
     "shareholdingStructures": [{shareholder}]
     "managerialStructure": [{founder}]
