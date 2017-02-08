@@ -107,8 +107,12 @@ You want to create your company? That's great! Let's start you project now, only
 POST /companies/
 {
     "companyCreationDatas": {
-    	"registeredName": "DJPAD",
-	"registeredAddress": {address},	
+    	"registeredName": "Rocket Startup",
+	"registeredAddress": {
+		"street": "4 NEW YORK PLAZA, FLOOR 15",
+    		"postCode": "75008",
+    		"city": "Paris",
+   		"country": "FR"
 	},
     "shareholdingStructures": {
     	"shareholders": {
@@ -140,7 +144,7 @@ POST /companies/
     "id": NT4edA,
     "status": "Not yet submitted",
     "companyCreationDatas": {
-    	"registeredName": "DJPAD",
+    	"registeredName": "Rocket Startup",
 	"registeredAddress": {address},	
 	"commercialName": null,
 	"commercialAddress": {address},	
@@ -198,29 +202,78 @@ PUT /companies/NT4edA/confirm
 | Field | Type | Description |
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
-| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| status | [Status](#type_status) | The stage of your company creation project. |
 | accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
 "companies": {
     "id": NT4edA,
+    "status": "Awaiting deposits",
     "accounts": {
 	    "currency": "EUR",
-	    "tag": "DJPAD [En cours de création]",
+	    "status": "escrow account",
+	    "tag": "Rocket Startup [En cours de création]",
 	    "accountNumber": "FR914516981638516313513",
 	    "holder":{ 
-	    	"holderName": "DJPAD [En cours de création]",
-		"holderAddress": "",
+	    	"name": "Rocket Startup [En cours de création]",
+		"address": {
+			"street": "4 NEW YORK PLAZA, FLOOR 15",
+			"postCode": "75008",
+			"city": "Paris",
+			"country": "FR"
+		},
 	    },
-	    "holderBank":{beneficiaryBank},
+	    "holderBank": {
+		    "bic": "FXBBBEBBXXX",
+		    "name": "FX4BIZ S.A.",
+		    "address": {
+		    	"street": "350 Avenue Louise",
+			"postCode": "1050",
+			"city": "Brussels",
+			"country": "BE"
+		    }
+	    },
     },
 }
 ```
 <hr />
 
+
+#### <a id="put_companiesCertificateDeposit"></a> Ask for a certificate of deposit ####
+
+```
+Method: PUT 
+URL: /companies/-{id}/certificateDeposit
+```
+At this stage we will require more data and documents. 
+By submitting your project, you have to proceed to the review of your project and the deposits. When we are fine, we will move the status to "certificate of deposit ready" and you will be able to retrieve your certificate as a document to follow the process of registration of you company with the appropriate legal institution. 
+
+**Parameters:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| id | [ID](../conventions/formattingConventions.md#type_id) | Required | The internal reference for this company creation. |
+
+**Example:**
+```js
+PUT /companies/NT4edA/certificateDeposit
+```
+
+**Returns:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
+| status | [Status](#type_status) | The stage of your company creation project. |
+
+**Example:**
+```js
+"companies": {
+    "id": NT4edA,
+    "status": "Project being reviewed",
+}
+```
 <hr />
 # API Objects  
 
