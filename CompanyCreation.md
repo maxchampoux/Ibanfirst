@@ -73,7 +73,11 @@ We are so sad you are doing that. See you next time!
 | Route | Description |
 |-------|-------------|
 | [`POST /companies/`](#post_companies) | Create a new company |
-| [`PUT /companies/-{id}/confirm`](#put_companies) | Submit a new company |
+| [`PUT /companies/-{id}/confirm`](#put_companiesIban) | Submit a new company |
+| [`PUT /companies/-{id}/certificateDeposit`](#put_companiesCertificateDeposit) | Ask for a certificate of deposit |
+| [`PUT /companies/-{id}/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
+| [`PUT /companies/-{id}/releaseDeposit`](#put_companiesReleaseDeposit) | Ask for the release of the deposit |
+| [`PUT /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
 | [`GET /companies/-{id}/`](#get_companies) | Get the status of a company creation |
 | [`PUT /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
 
