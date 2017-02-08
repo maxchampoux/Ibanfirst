@@ -93,15 +93,14 @@ We are so sad you are doing that. See you next time!
 Method: POST 
 URL: /companies/
 ```
-You want to create your company? That's great! Start you project now, minimum information needed to open a file.
+You want to create your company? That's great! Let's start you project now, only a minimum of information is needed to open a file.
 
 **Parameters:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array<[Founder Object](#founder_object)> | Required | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array<[Shareholders Object](#shareholders_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
@@ -109,12 +108,21 @@ POST /companies/
 {
     "companyCreationDatas": {
     	"registeredName": "DJPAD",
-	"registeredAddress": {address},
-	
-	}
-    "shareholdingStructures": [{shareholder}]
-    "managerialStructures": [{founder}]
-}
+	"registeredAddress": {address},	
+	},
+    "shareholdingStructures": {
+    	"shareholders": {
+		"type": "Individual",
+		"isMainFounder": 1,
+		"registeredName": {
+			"firstName": "Maxime",
+			"lastName": "Champoux",
+		},
+		"registeredCountry": FR,
+		"email": "mch@ibanfirst.com",
+	},
+    },			
+},
 ```
 
 **Returns:**
@@ -124,18 +132,45 @@ POST /companies/
 | id | [ID](#type_id) | The internal reference for this company creation. |
 | status | [Status](#type_status) | The stage of your company creation project. |
 | companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| shareholdingStructures | Array<[Shareholders Object](#shareholders_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
 
 **Example:**
 ```js
 "companies": {
     "id": NT4edA,
     "status": "Not yet submitted",
-    "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": [{shareholder}]
-    "managerialStructure": [{founder}]
-}
+    "companyCreationDatas": {
+    	"registeredName": "DJPAD",
+	"registeredAddress": {address},	
+	"commercialName": null,
+	"commercialAddress": {address},	
+	"tag": null,
+	"productDescription": null,
+	"activityCode": null,
+	"legalForm": null,
+	"authorizedCapital": null,
+	"documents": null,
+	},
+    "shareholdingStructures": {
+    	"shareholders": {
+		"type": "Individual",
+		"isMainFounder": 1,
+		"registeredName": {
+			"firstName": "Maxime",
+			"middleName": null,
+			"lastName": "Champoux",
+		}
+		"registeredCountry": FR,
+		"registeredNumber": null,
+		"tag": null,
+		"email": "mch@ibanfirst.com",
+		"birthDate": null,
+		"phoneNumber": null,		
+		"position": "Astronaute",
+		"documents": null,
+	},
+    },		
+},
 ```
 <hr />
 
@@ -145,7 +180,7 @@ POST /companies/
 Method: PUT 
 URL: /companies/-{id}/confirm
 ```
-Submit a new company.
+Ok well, at this stage we will require some data and documents. By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
 **Parameters:**
 
@@ -172,15 +207,14 @@ PUT /companies/NT4edA/confirm
 ```js
 "companies": {
     "id": NT4edA,
-    "status": "En attente de dépot de capital social",
-    "companyCreationDatas": {companyCreationDatas},
-    "shareholdingStructures": [{shareholder}],
-    "managerialStructure": [{founder}],
     "accounts": {
 	    "currency": "EUR",
-	    "tag": "[CompanyName] [En cours de création]",
-	    "accountNumber": "516981638516313513",
-	    "holder":{beneficiary},
+	    "tag": "DJPAD [En cours de création]",
+	    "accountNumber": "FR914516981638516313513",
+	    "holder":{ 
+	    	"holderName": "DJPAD [En cours de création]",
+		"holderAddress": "",
+	    },
 	    "holderBank":{beneficiaryBank},
     },
 }
@@ -256,7 +290,6 @@ Specific information required for opening a company creation file.
 ```js
 "companyCreationDatas": {
     "registeredName": "DJPAD",
-    "commercialName": "null",
     "tag":"null",
     "registeredAddress": {address},
     "commercialAddress": {address},
@@ -302,13 +335,13 @@ Specific information required for submitting a company creation file.
 ```js
 "companyCreationDatas": {
     "registeredName": "DJPAD",
-    "commercialName": "null",
-    "tag":"null",
     "registeredAddress": {address},
-    "commercialAddress": {address},
-    "activityCode":"6201Z",
-    "legalForm":"SARL unipersonnelle",
-    "authorizedCapital":{amount},
+    "activityCode": "6201Z",
+    "legalForm": "SARL unipersonnelle",
+    "authorizedCapital": {
+    	"value": 1000.00,
+	"curency": EUR,
+    }	
     "documents": [
     	"document": {
 		"type": "article of association",
