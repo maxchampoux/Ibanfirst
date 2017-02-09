@@ -9,23 +9,22 @@ Please use the following service to create your company project :
 POST /companies/
 ```
 
-#### 2. Submit your project ####
+#### 2. Ask for an IBAN ####
 
 ```
-PUT /companies/-{id}/confirm
+PUT /companies/-{id}/iban
 ```
 
-Until your project is not complete, the following service will return errors mentionning the missings information.
-When your project is complete, this service will return an IBAN for the deposit of the "Capital Social" of your future company.
+This service will return an IBAN for the deposit of the "Capital Social" of your future company.
 
 #### 3. Ask for a certificate of deposit ####
 
 ```
-PUT /companies/-{id}/certificateDeposit
+PUT /companies/-{id}/projectComplete
 ```
 
 Until your project is not complete, the following service will return errors mentionning the missings information.
-When your project is complete, the analysis of you project and the generation of the certificate can take up to 48 hours. In case you have implemented a webhook, you will be notified as soon as this certificate is available. In other cases, you may call our document APi to retrieve the document.
+When your project is complete, the analysis of your project and the generation of the certificate can take up to 48 hours. In case you have implemented a webhook, you will be notified as soon as this certificate is available. In other cases, you may call our API to get the status and retrieve the document when available.
 
 #### 4. Upload your Kbis ####
 
@@ -73,8 +72,8 @@ We are so sad you are doing that. See you next time!
 | Route | Description |
 |-------|-------------|
 | [`POST /companies/`](#post_companies) | Start a company creation project |
-| [`PUT /companies/-{id}/confirm`](#put_companiesIban) | Submit my company creation project |
-| [`PUT /companies/-{id}/certificateDeposit`](#put_companiesCertificateDeposit) | Ask for a certificate of deposit |
+| [`PUT /companies/-{id}/iban`](#put_companiesIban) | Ask for an IBAN |
+| [`PUT /companies/-{id}/complete`](#put_companiesComplete) | Ask for a certificate of deposit |
 | [`PUT /companies/-{id}/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
 | [`PUT /companies/-{id}/releaseDeposit`](#put_companiesReleaseDeposit) | Ask for the release of the deposit |
 | [`PUT /companies/-{id}/`](#put_companies) | Update the informations on my project |
@@ -99,27 +98,27 @@ You want to create your company? That's great! Let's start you project now, only
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Required | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array<[Shareholders Object](#shareholders_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Required | Standard information on the projet and the future activity of the company. Only the registered name and address are required in the [Company Creation Data Object](#companyCreationData_object) |
+| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. The following fields: type, isMainFounder, registered[type]Name, registeredCountry and email are required fields in [Shareholder Object](#shareholder_object) |
 
 **Example:**
 ```js
 POST /companies/
 {
-    "companyCreationDatas": {
+    "companyCreationData": {
     	"registeredName": "Rocket Startup",
 	"registeredAddress": {
 		"street": "4 NEW YORK PLAZA, FLOOR 15",
     		"postCode": "75008",
     		"city": "Paris",
-   		"country": "FR"
+   		"country": "FR",
 	},
     },
-    "shareholdingStructures": {
-    	"shareholders": {
+    "shareholdingStructure": {
+    	"shareholder": {
 		"type": "Individual",
 		"isMainFounder": 1,
-		"registeredName": {
+		"registeredIndividualName": {
 			"firstName": "Maxime",
 			"lastName": "Champoux",
 		},
@@ -134,21 +133,22 @@ POST /companies/
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | [ID](#type_id) | The internal reference for this company creation. |
+| id | [ID](#type_id) | The internal reference for this company creation project. |
 | status | [Status](#type_status) | The stage of your company creation project. |
-| companyCreationDatas | [Company Creation Datas Object](#companyCreationDatas_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructures | Array<[Shareholders Object](#shareholders_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
+| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| account | [Account Object](#account_object) | The IBAN that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
 "companies": {
     "id": NT4edA,
     "status": "Not yet submitted",
-    "companyCreationDatas": {
+    "companyCreationData": {
     	"registeredName": "Rocket Startup",
 	"registeredAddress": {address},	
 	"commercialName": null,
-	"commercialAddress": {address},	
+	"commercialAddress": null,	
 	"tag": null,
 	"productDescription": null,
 	"activityCode": null,
@@ -156,17 +156,20 @@ POST /companies/
 	"authorizedCapital": null,
 	"documents": null,
     },
-    "shareholdingStructures": {
-    	"shareholders": {
+    "shareholdingStructure": {
+    	"shareholder": {
 		"type": "Individual",
 		"isMainFounder": 1,
-		"registeredName": {
+		"ownershipPourcentage": null,
+		"registeredIndividualName": {
 			"firstName": "Maxime",
 			"middleName": null,
 			"lastName": "Champoux",
 		}
+		"registeredCorporateName": null,
 		"registeredCountry": FR,
-		"registeredNumber": null,
+		"registeredIndividualNumber": null,
+		"registeredCorporateNumber": null,
 		"tag": null,
 		"email": "mch@ibanfirst.com",
 		"birthDate": null,
@@ -174,18 +177,24 @@ POST /companies/
 		"position": "Astronaute",
 		"documents": null,
 	},
+	"account": {
+	    "currency": null,
+	    "accountNumber": null,
+	    "holderName": null,
+        },
     },		
 },
 ```
 <hr />
 
-#### <a id="put_companies"></a> Submit a new company ####
+#### <a id="put_companiesIban"></a> Ask for an IBAN ####
 
 ```
 Method: PUT 
-URL: /companies/-{id}/confirm
+URL: /companies/-{id}/iban
 ```
-Ok well, at this stage we will require some data and documents. By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
+Ok well, at this stage we will require some data and documents.
+By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
 **Parameters:**
 
@@ -213,8 +222,8 @@ PUT /companies/NT4edA/confirm
 			"id": "Rocket Startup - Projets de Statuts",
 		},
 	},
-    "shareholdingStructures": {
-    	"shareholders": {
+    "shareholdingStructure": {
+    	"shareholder": {
 		"type": "Individual",
 		"isMainFounder": 1,
 		"ownershipPourcentage": 100%,
@@ -237,6 +246,11 @@ PUT /companies/NT4edA/confirm
 			},
 		}
 	},
+	"accounts": {
+	    "currency": "EUR",
+	    "accountNumber": "FR914516981638516313513",
+	    "holderName": "Rocket Startup [En cours de création]",
+        },
     },		
 },
 
