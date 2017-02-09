@@ -154,7 +154,7 @@ POST /companies/
 	"legalForm": null,
 	"authorizedCapital": null,
 	"documents": null,
-	},
+    },
     "shareholdingStructures": {
     	"shareholders": {
 		"type": "Individual",
@@ -239,7 +239,6 @@ PUT /companies/NT4edA/confirm
     },		
 },
 
-		"ownershipPourcentage": 100%,
 ```
 
 **Returns:**
