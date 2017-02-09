@@ -193,7 +193,9 @@ POST /companies/
 Method: PUT 
 URL: /companies/-{id}/iban
 ```
-Ok well, at this stage we will require some data and documents.
+Ok well, at this stage we will require some data and documents to be already specified in the project:
+*legalForm
+
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
 **Parameters:**
@@ -204,7 +206,7 @@ By submitting your project, you will have in return an IBAN that you can share w
 
 **Example:**
 ```js
-PUT /companies/NT4edA/confirm
+PUT /companies/NT4edA/iban
 {
     "companyCreationDatas": {
     	"activityCode": null,
