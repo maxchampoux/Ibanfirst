@@ -114,6 +114,7 @@ POST /companies/
     		"city": "Paris",
    		"country": "FR"
 	},
+    },
     "shareholdingStructures": {
     	"shareholders": {
 		"type": "Individual",
