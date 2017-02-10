@@ -93,9 +93,11 @@ Method: POST
 URL: /companies/
 ```
 You want to create your company? That's great! Let's start you project now, only a minimum of information is needed to open a file:
+
 On your future company:
 * registeredName
 * registeredAddress
+
 On you:
 * shareholder : type, isMainFounder, registeredIndividualName, registeredCountry, email
 
@@ -202,7 +204,7 @@ URL: /companies/-{id}/iban
 Ok well, at this stage we will require some data and documents to be already specified in the project:
 * legalForm
 * authorizedCapital
-* shareholder : type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
+* shareholder: type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -338,11 +340,11 @@ Method: PUT
 URL: /companies/-{id}/certificateDeposit
 ```
 At this stage, we will require additional data and documents:
-* legalForm
-* authorizedCapital
-* shareholder : type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
+* documents: type (articleOfAssociation, businessPlan), status: uploaded.
+* activityCode
+* shareholdingStructure/ shareholder: type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
 
-By submitting your project, you have to proceed to the review of your project and the deposits. When we are fine, we will move the status to "certificate of deposit ready" and you will be able to retrieve your certificate as a document to follow the process of registration of you company with the appropriate legal institution. 
+By submitting your project, you consider that your project is complete and we will proceed to a due diligence review of of your project, the shareholders and the presence of the right deposits. When we are fine, your project status will be updated to "certificate of deposit ready" and you will be able to retrieve your certificate using the request ```GET ../companies/-{id}/document/certificateDeposit``` and the
 
 **Parameters:**
 
