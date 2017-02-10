@@ -92,7 +92,12 @@ We are so sad you are doing that. See you next time!
 Method: POST 
 URL: /companies/
 ```
-You want to create your company? That's great! Let's start you project now, only a minimum of information is needed to open a file.
+You want to create your company? That's great! Let's start you project now, only a minimum of information is needed to open a file:
+On your future company:
+* registeredName
+* registeredAddress
+On you:
+* shareholder : type, isMainFounder, registeredIndividualName, registeredCountry, email
 
 **Parameters:**
 
@@ -176,6 +181,7 @@ POST /companies/
 		"phoneNumber": null,		
 		"position": "Astronaute",
 		"documents": null,
+		"shareholdingStructure": null,
 	},
 	"account": {
 	    "currency": null,
@@ -194,7 +200,9 @@ Method: PUT
 URL: /companies/-{id}/iban
 ```
 Ok well, at this stage we will require some data and documents to be already specified in the project:
-*legalForm
+* legalForm
+* authorizedCapital
+* shareholder : type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -224,12 +232,13 @@ PUT /companies/NT4edA/iban
 			"id": "Rocket Startup - Projets de Statuts",
 		},
 	},
+    }
     "shareholdingStructure": {
     	"shareholder": {
 		"type": "Individual",
 		"isMainFounder": 1,
 		"ownershipPourcentage": 100%,
-		"registeredName": {
+		"registeredIndividualName": {
 			"firstName": "Maxime",
 			"middleName": null,
 			"lastName": "Champoux",
@@ -248,11 +257,6 @@ PUT /companies/NT4edA/iban
 			},
 		}
 	},
-	"accounts": {
-	    "currency": "EUR",
-	    "accountNumber": "FR914516981638516313513",
-	    "holderName": "Rocket Startup [En cours de création]",
-        },
     },		
 },
 
@@ -264,42 +268,68 @@ PUT /companies/NT4edA/iban
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
 | status | [Status](#type_status) | The stage of your company creation project. |
-| accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
+| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
+| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
 "companies": {
     "id": NT4edA,
     "status": "Awaiting deposits",
-    "accounts": {
-	    "currency": "EUR",
-	    "status": "escrow account",
-	    "tag": "Rocket Startup [En cours de création]",
-	    "accountNumber": "FR914516981638516313513",
-	    "holder":{ 
-	    	"name": "Rocket Startup [En cours de création]",
-		"address": {
-			"street": "4 NEW YORK PLAZA, FLOOR 15",
-			"postCode": "75008",
-			"city": "Paris",
-			"country": "FR"
+    "companyCreationDatas": {
+    	"activityCode": null,
+	"legalForm": null,
+	"authorizedCapital": {
+		"value": "100000.00",
+		"amount": "EUR",
+	"documents": {
+		"document": {
+			"type": "businessPlan",
+			"id": "Rocket Startup - Business Plan",
+			"status": "not uploaded",
 		},
-	    },
-	    "holderBank": {
-		    "bic": "FXBBBEBBXXX",
-		    "name": "FX4BIZ S.A.",
-		    "address": {
-		    	"street": "350 Avenue Louise",
-			"postCode": "1050",
-			"city": "Brussels",
-			"country": "BE"
-		    }
-	    },
+		"document": {
+			"type": "articleOfAssociation",
+			"id": "Rocket Startup - Projets de Statuts",
+			"status": "not uploaded",
+		},
+	},
+    },
+    "shareholdingStructure": {
+    	"shareholder": {
+		"type": "Individual",
+		"isMainFounder": 1,
+		"ownershipPourcentage": 100%,
+		"registeredIndividualName": {
+			"firstName": "Maxime",
+			"middleName": null,
+			"lastName": "Champoux",
+		}
+		"registeredCountry": FR,
+		"registeredNumber": null,
+		"tag": null,
+		"email": "mch@ibanfirst.com",
+		"birthDate": null,
+		"phoneNumber": null,		
+		"position": "Astronaute",
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "Maxime Champoux - CNI",
+				"status": "uploaded",
+			},
+		},
+	},
+    },
+    "account": {
+	"currency": EUR,
+	"accountNumber": "FR914516981638516313513",
+	"holderName": "Rocket Startup [En cours de création]",
     },
 }
 ```
 <hr />
-
 
 #### <a id="put_companiesCertificateDeposit"></a> Ask for a certificate of deposit ####
 
@@ -307,7 +337,11 @@ PUT /companies/NT4edA/iban
 Method: PUT 
 URL: /companies/-{id}/certificateDeposit
 ```
-At this stage we will require more data and documents. 
+At this stage, we will require additional data and documents:
+* legalForm
+* authorizedCapital
+* shareholder : type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
+
 By submitting your project, you have to proceed to the review of your project and the deposits. When we are fine, we will move the status to "certificate of deposit ready" and you will be able to retrieve your certificate as a document to follow the process of registration of you company with the appropriate legal institution. 
 
 **Parameters:**
