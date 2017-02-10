@@ -94,19 +94,19 @@ URL: /companies/
 ```
 You want to create your company? That's great! Let's start you project now, only a minimum of information is needed to open a file:
 
-On your future company:
+On your future company ([Company Creation Data Object](#companyCreationData_object)):
 * registeredName
 * registeredAddress
 
-On you:
+On the founders' team ( [Shareholder Object](#shareholder_object) |):
 * shareholder : type, isMainFounder, registeredIndividualName, registeredCountry, email
 
 **Parameters:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Required | Standard information on the projet and the future activity of the company. Only the registered name and address are required in the [Company Creation Data Object](#companyCreationData_object) |
-| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. The following fields: type, isMainFounder, registered[type]Name, registeredCountry and email are required fields in [Shareholder Object](#shareholder_object) |
+| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Required | Standard information on the projet and the future activity of the company. |
+| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | Required | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. 
 
 **Example:**
 ```js
@@ -129,7 +129,7 @@ POST /companies/
 			"firstName": "Maxime",
 			"lastName": "Champoux",
 		},
-		"registeredCountry": FR,
+		"registeredIndividualCountry": FR,
 		"email": "mch@ibanfirst.com",
 	},
     },			
@@ -153,7 +153,12 @@ POST /companies/
     "status": "Not yet submitted",
     "companyCreationData": {
     	"registeredName": "Rocket Startup",
-	"registeredAddress": {address},	
+	"registeredAddress": {
+		"street": "4 NEW YORK PLAZA, FLOOR 15",
+    		"postCode": "75008",
+    		"city": "Paris",
+   		"country": "FR",
+	},
 	"commercialName": null,
 	"commercialAddress": null,	
 	"tag": null,
@@ -165,6 +170,7 @@ POST /companies/
     },
     "shareholdingStructure": {
     	"shareholder": {
+		"id": "XV4edA",
 		"type": "Individual",
 		"isMainFounder": 1,
 		"ownershipPourcentage": null,
@@ -174,7 +180,7 @@ POST /companies/
 			"lastName": "Champoux",
 		}
 		"registeredCorporateName": null,
-		"registeredCountry": FR,
+		"registeredIndividualCountry": FR,
 		"registeredIndividualNumber": null,
 		"registeredCorporateNumber": null,
 		"tag": null,
@@ -202,9 +208,13 @@ Method: PUT
 URL: /companies/-{id}/iban
 ```
 Ok well, at this stage we will require some data and documents to be already specified in the project:
+
+On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
 * legalForm
 * authorizedCapital
-* shareholder: type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
+
+On the founders' team ( [Shareholder Object](#shareholder_object) |):
+* shareholder: id, type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -219,8 +229,7 @@ By submitting your project, you will have in return an IBAN that you can share w
 PUT /companies/NT4edA/iban
 {
     "companyCreationDatas": {
-    	"activityCode": null,
-	"legalForm": null,
+	"legalForm": "EURL",
 	"authorizedCapital": {
 		"value": "100000.00",
 		"amount": "EUR",
@@ -237,21 +246,7 @@ PUT /companies/NT4edA/iban
     }
     "shareholdingStructure": {
     	"shareholder": {
-		"type": "Individual",
-		"isMainFounder": 1,
-		"ownershipPourcentage": 100%,
-		"registeredIndividualName": {
-			"firstName": "Maxime",
-			"middleName": null,
-			"lastName": "Champoux",
-		}
-		"registeredCountry": FR,
-		"registeredNumber": null,
-		"tag": null,
-		"email": "mch@ibanfirst.com",
-		"birthDate": null,
-		"phoneNumber": null,		
-		"position": "Astronaute",
+		"id": "XV4edA",
 		"documents": {
 			"document": {
 				"type": "idProof",
@@ -281,7 +276,7 @@ PUT /companies/NT4edA/iban
     "status": "Awaiting deposits",
     "companyCreationDatas": {
     	"activityCode": null,
-	"legalForm": null,
+	"legalForm": "EURL",
 	"authorizedCapital": {
 		"value": "100000.00",
 		"amount": "EUR",
@@ -300,6 +295,7 @@ PUT /companies/NT4edA/iban
     },
     "shareholdingStructure": {
     	"shareholder": {
+		"id": "XV4edA",
 		"type": "Individual",
 		"isMainFounder": 1,
 		"ownershipPourcentage": 100%,
@@ -340,11 +336,15 @@ Method: PUT
 URL: /companies/-{id}/certificateDeposit
 ```
 At this stage, we will require additional data and documents:
+
+On your future company ([Company Creation Datas Object](#companyCreationDatas_object)):
 * documents: type (articleOfAssociation, businessPlan), status: uploaded.
 * activityCode
+
+On the founders' team [Shareholding Structure Object](#shareholdingStructure_object):
 * shareholdingStructure/ shareholder: type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
 
-By submitting your project, you consider that your project is complete and we will proceed to a due diligence review of of your project, the shareholders and the presence of the right deposits. When we are fine, your project status will be updated to "certificate of deposit ready" and you will be able to retrieve your certificate using the request ```GET ../companies/-{id}/document/certificateDeposit``` and the
+By submitting your project, you consider that your project is complete and we will proceed to a due diligence review of of your project, the shareholders and the presence of the right deposits. When we are fine, your project status will be updated to "certificate of deposit ready" and you will be able to retrieve your certificate using the request ```GET ../companies/-{id}/document/certificateDeposit```.
 
 **Parameters:**
 
@@ -355,6 +355,23 @@ By submitting your project, you consider that your project is complete and we wi
 **Example:**
 ```js
 PUT /companies/NT4edA/certificateDeposit
+{
+    "companyCreationDatas": {
+    	"activityCode": "8542Z",
+	"documents": {
+		"document": {
+			"type": "businessPlan",
+			"id": "Rocket Startup - Business Plan",
+		},
+		"document": {
+			"type": "articleOfAssociation",
+			"id": "Rocket Startup - Projets de Statuts",
+		},
+	},
+    }
+   	
+},
+
 ```
 
 **Returns:**
@@ -363,12 +380,67 @@ PUT /companies/NT4edA/certificateDeposit
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
 | status | [Status](#type_status) | The stage of your company creation project. |
+| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
+| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
-**Example:**
+**Example**
 ```js
 "companies": {
     "id": NT4edA,
     "status": "Project being reviewed",
+    "companyCreationDatas": {
+    	"activityCode": "8542Z",
+	"legalForm": "EURL",
+	"authorizedCapital": {
+		"value": "100000.00",
+		"amount": "EUR",
+	"documents": {
+		"document": {
+			"type": "businessPlan",
+			"id": "Rocket Startup - Business Plan",
+			"status": "uploaded",
+		},
+		"document": {
+			"type": "articleOfAssociation",
+			"id": "Rocket Startup - Projets de Statuts",
+			"status": "uploaded",
+		},
+	},
+    },
+    "shareholdingStructure": {
+    	"shareholder": {
+		"type": "Individual",
+		"isMainFounder": 1,
+		"ownershipPourcentage": 100%,
+		"registeredIndividualName": {
+			"firstName": "Maxime",
+			"middleName": null,
+			"lastName": "Champoux",
+		}
+		"registeredCountry": FR,
+		"registeredNumber": null,
+		"tag": null,
+		"email": "mch@ibanfirst.com",
+		"birthDate": null,
+		"phoneNumber": null,		
+		"position": "Astronaute",
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "Maxime Champoux - CNI",
+				"status": "uploaded",
+			},
+		},
+	},
+    },
+    "account": {
+	"currency": EUR,
+	"accountNumber": "FR914516981638516313513",
+	"holderName": "Rocket Startup [En cours de création]",
+    },
+}
+```
 }
 ```
 <hr />
