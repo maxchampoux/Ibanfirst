@@ -80,6 +80,7 @@ We are so sad you are doing that. See you next time!
 | [`GET /companies/-{id}/`](#get_companies) | Get the status of my project |
 | [`DELETE /companies/-{id}/`](#delete_companies) | Delete information on my project |
 | [`POST /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
+| [`GET /companies/-{id}/certificateIncorporation/`](#getDocuments_certificateIncorporation) | Retrieve your certificate of deposit |
 | [`DELETE /companies/-{id}/documents/-{id}`](#putDocuments_companies) | Submit documents to a company creation |
 
 <hr />
@@ -99,7 +100,7 @@ On your future company ([Company Creation Data Object](#companyCreationData_obje
 * registeredAddress
 
 On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder : type, isMainFounder, registeredIndividualName, registeredCountry, email
+* shareholder: type, isMainFounder, registeredIndividualName, registeredCountry, email
 
 **Parameters:**
 
@@ -195,6 +196,7 @@ POST /companies/
 	    "currency": null,
 	    "accountNumber": null,
 	    "holderName": null,
+	    "financialMovements": null,
         },
     },		
 },
@@ -324,6 +326,7 @@ PUT /companies/NT4edA/iban
 	"currency": EUR,
 	"accountNumber": "FR914516981638516313513",
 	"holderName": "Rocket Startup [En cours de création]",
+	"financialMovements": null,
     },
 }
 ```
@@ -350,7 +353,7 @@ By submitting your project, you consider that your project is complete and we wi
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| id | [ID](../conventions/formattingConventions.md#type_id) | Required | The internal reference for this company creation. |
+| id | [ID](../conventions/formattingConventions.md#type_id) | Required | The internal reference for this company creation project. |
 
 **Example:**
 ```js
@@ -438,6 +441,25 @@ PUT /companies/NT4edA/certificateDeposit
 	"currency": EUR,
 	"accountNumber": "FR914516981638516313513",
 	"holderName": "Rocket Startup [En cours de création]",
+	"financialMovements": {
+		financialMovement {
+			"id": "FX4edA",
+			"bookingDate": "2017-07-14",
+			"valueDate": "2017-07-14",
+			"authorizedCapital": {
+				"value": "100000.00",
+				"amount": "EUR",
+			}
+			"sourceAccount": {
+				"accountNumber": "FR650516981638516313513",
+				"holderName": "Maxime Champoux",
+			}
+			"targetAccount": {
+				"accountNumber": "FR914516981638516313513",
+				"holderName": "Rocket Startup [En cours de création]",
+			}
+		}
+	},
     },
 }
 ```
@@ -454,7 +476,9 @@ PUT /companies/NT4edA/certificateDeposit
 Method: PUT 
 URL: /companies/-{id}/certificateIncorporation
 ```
-At this stage, basically your company should be registered. Therefore, we will require the registration infromation and your kbis so that we can release a part or the totality of your deposit.  
+At this stage, basically your company should be registered. Congratulation! Therefore, we will require the registration information on your company:
+* Document: certificate of deposit, signed article of association
+* Registration number
 
 **Parameters:**
 
@@ -473,12 +497,69 @@ PUT /companies/NT4edA/certificateDeposit
 |-------|------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
 | status | [Status](#type_status) | The stage of your company creation project. |
+| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
+| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
+| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
 
 **Example:**
 ```js
 "companies": {
     "id": NT4edA,
-    "status": "Project being reviewed",
+    "status": "Registration documents being reviewed",
+    "companyCreationDatas": {
+    	"activityCode": "8542Z",
+	"legalForm": "EURL",
+	"authorizedCapital": {
+		"value": "100000.00",
+		"amount": "EUR",
+	"documents": {
+		"document": {
+			"type": "businessPlan",
+			"id": "Rocket Startup - Business Plan",
+			"status": "uploaded",
+		},
+		"document": {
+			"type": "articleOfAssociation",
+			"id": "Rocket Startup - Projets de Statuts",
+			"status": "uploaded",
+		},
+	},
+    },
+    "shareholdingStructure": {
+    	"shareholder": {
+		"type": "Individual",
+		"isMainFounder": 1,
+		"ownershipPourcentage": 100%,
+		"registeredIndividualName": {
+			"firstName": "Maxime",
+			"middleName": null,
+			"lastName": "Champoux",
+		}
+		"registeredCountry": FR,
+		"registeredNumber": null,
+		"tag": null,
+		"email": "mch@ibanfirst.com",
+		"birthDate": null,
+		"phoneNumber": null,		
+		"position": "Astronaute",
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "Maxime Champoux - CNI",
+				"status": "uploaded",
+			},
+		},
+	},
+    },
+    "account": {
+	"currency": EUR,
+	"accountNumber": "FR914516981638516313513",
+	"holderName": "Rocket Startup [En cours de création]",
+    },
+}
+```
+}
+```
 }
 ```
 <hr />
