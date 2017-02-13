@@ -26,7 +26,15 @@ PUT /companies/-{id}/projectComplete
 Until your project is not complete, the following service will return errors mentionning the missings information.
 When your project is complete, the analysis of your project and the generation of the certificate can take up to 48 hours. In case you have implemented a webhook, you will be notified as soon as this certificate is available. In other cases, you may call our API to get the status and retrieve the document when available.
 
-#### 4. Upload your Kbis ####
+#### 4. Retrieve your certificate of deposit ####
+
+```
+GET /companies/-{id}/documents/certificateDeposit
+```
+
+You can use either this service of a taylor-made webhook to retrieve your certificate of deposit.
+
+#### 5. Upload your Kbis ####
 
 ```
 PUT /companies/-{id}/certificateIncorporation
@@ -35,7 +43,7 @@ PUT /companies/-{id}/certificateIncorporation
 Until your project is not complete, the following service will return errors mentionning the missings information.
 When your project is complete, you must upload the official certificate of incorporation.
 
-#### 5. Ask for the release of the deposit ####
+#### 6. Ask for the release of the deposit ####
 
 ```
 PUT /companies/-{id}/releaseDeposit
@@ -74,13 +82,13 @@ We are so sad you are doing that. See you next time!
 | [`POST /companies/`](#post_companies) | Start a company creation project |
 | [`PUT /companies/-{id}/iban`](#put_companiesIban) | Ask for an IBAN |
 | [`PUT /companies/-{id}/complete`](#put_companiesComplete) | Ask for a certificate of deposit |
-| [`PUT /companies/-{id}/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
+| [`GET /companies/-{id}/document/certificateDeposit/`](#getDocuments_certificateIncorporation) | Retrieve your certificate of deposit |
+| [`PUT /companies/-{id}/document/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
 | [`PUT /companies/-{id}/releaseDeposit`](#put_companiesReleaseDeposit) | Ask for the release of the deposit |
 | [`PUT /companies/-{id}/`](#put_companies) | Update the informations on my project |
 | [`GET /companies/-{id}/`](#get_companies) | Get the status of my project |
 | [`DELETE /companies/-{id}/`](#delete_companies) | Delete information on my project |
 | [`POST /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
-| [`GET /companies/-{id}/certificateIncorporation/`](#getDocuments_certificateIncorporation) | Retrieve your certificate of deposit |
 | [`DELETE /companies/-{id}/documents/-{id}`](#putDocuments_companies) | Submit documents to a company creation |
 
 <hr />
@@ -306,8 +314,10 @@ PUT /companies/NT4edA/iban
 			"middleName": null,
 			"lastName": "Champoux",
 		}
-		"registeredCountry": FR,
-		"registeredNumber": null,
+		"registeredCorporateName": null,
+		"registeredIndividualCountry": FR,
+		"registeredIndividualNumber": null,
+		"registeredCorporateNumber": null,
 		"tag": null,
 		"email": "mch@ibanfirst.com",
 		"birthDate": null,
@@ -332,11 +342,11 @@ PUT /companies/NT4edA/iban
 ```
 <hr />
 
-#### <a id="put_companiesCertificateDeposit"></a> Ask for a certificate of deposit ####
+#### <a id="put_companiesComplete"></a> Ask for a certificate of deposit ####
 
 ```
 Method: PUT 
-URL: /companies/-{id}/certificateDeposit
+URL: /companies/-{id}/complete
 ```
 At this stage, we will require additional data and documents:
 
@@ -421,8 +431,10 @@ PUT /companies/NT4edA/certificateDeposit
 			"middleName": null,
 			"lastName": "Champoux",
 		}
-		"registeredCountry": FR,
-		"registeredNumber": null,
+		"registeredCorporateName": null,
+		"registeredIndividualCountry": FR,
+		"registeredIndividualNumber": null,
+		"registeredCorporateNumber": null,
 		"tag": null,
 		"email": "mch@ibanfirst.com",
 		"birthDate": null,
@@ -463,21 +475,18 @@ PUT /companies/NT4edA/certificateDeposit
     },
 }
 ```
-}
-```
+
 <hr />
-
-| [`PUT /companies/-{id}/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
-
 
 #### <a id="put_companiesCertificateIncorporation"></a> Upload your Kbis ####
 
 ```
 Method: PUT 
-URL: /companies/-{id}/certificateIncorporation
+URL: /companies/-{id}/document/CertificateIncorporation
 ```
+
 At this stage, basically your company should be registered. Congratulation! Therefore, we will require the registration information on your company:
-* Document: certificate of deposit, signed article of association
+* Document: certificate of incorporation, signed article of association, status: uploaded.
 * Registration number
 
 **Parameters:**
@@ -488,7 +497,7 @@ At this stage, basically your company should be registered. Congratulation! Ther
 
 **Example:**
 ```js
-PUT /companies/NT4edA/certificateDeposit
+PUT /companies/NT4edA/document/certificateIncorporation
 ```
 
 **Returns:**
@@ -563,14 +572,13 @@ PUT /companies/NT4edA/certificateDeposit
 }
 ```
 <hr />
+
 # API Objects  
 
 * [Companies Object](#companies_object)
 * [Company Creation Datas Object](#companyCreationDatas_object)
 * [Company Submit Datas Object](#companySubmitDatas_object)
 * [Shareholder Object](#shareholder_object)
-* [Company Shareholder Datas Object](#companyShareholderDatas_object)
-* [Individual Shareholder Datas Object](#individualShareholderDatas_object)
 * [Founders Object](#founder_object)
 * [Account Object](#account_object)
 * [Phone Object](#phone_object)
