@@ -454,7 +454,7 @@ PUT /companies/NT4edA/certificateDeposit
 	"accountNumber": "FR914516981638516313513",
 	"holderName": "Rocket Startup [En cours de création]",
 	"financialMovements": {
-		financialMovement {
+		"financialMovement" {
 			"id": "FX4edA",
 			"bookingDate": "2017-07-14",
 			"valueDate": "2017-07-14",
