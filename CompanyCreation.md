@@ -81,7 +81,7 @@ We are so sad you are doing that. See you next time!
 |-------|-------------|
 | [`POST /companies/`](#post_companies) | Start a company creation project |
 | [`PUT /companies/-{id}/iban`](#put_companiesIban) | Ask for an IBAN |
-| [`PUT /companies/-{id}/complete`](#put_companiesComplete) | Ask for a certificate of deposit |
+| [`PUT /companies/-{id}/projectComplete`](#put_companiesComplete) | Ask for a certificate of deposit |
 | [`GET /companies/-{id}/document/certificateDeposit/`](#getDocuments_certificateIncorporation) | Retrieve your certificate of deposit |
 | [`PUT /companies/-{id}/document/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
 | [`PUT /companies/-{id}/releaseDeposit`](#put_companiesReleaseDeposit) | Ask for the release of the deposit |
@@ -346,7 +346,7 @@ PUT /companies/NT4edA/iban
 
 ```
 Method: PUT 
-URL: /companies/-{id}/complete
+URL: /companies/-{id}/projectComplete
 ```
 At this stage, we will require additional data and documents:
 
