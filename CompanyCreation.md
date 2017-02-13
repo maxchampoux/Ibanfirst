@@ -16,6 +16,7 @@ PUT /companies/-{id}/iban
 ```
 
 This service will return an IBAN for the deposit of the "Capital Social" of your future company.
+We will require the signature, ID and power of attorney of all founders at this stage. 
 
 #### 3. Ask for a certificate of deposit ####
 
@@ -32,7 +33,7 @@ When your project is complete, the analysis of your project and the generation o
 GET /companies/-{id}/documents/certificateDeposit
 ```
 
-You can use either this service of a taylor-made webhook to retrieve your certificate of deposit.
+You can use either this API service, a FTP server or a tailor-made webhook to retrieve your certificate of deposit.
 
 #### 5. Upload your Kbis ####
 
@@ -108,7 +109,7 @@ On your future company ([Company Creation Data Object](#companyCreationData_obje
 * registeredAddress
 
 On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: type, isMainFounder, registeredIndividualName, registeredCountry, email
+* shareholder: type, isMainFounder, registeredIndividualName, registeredIndividualCountry, email
 
 **Parameters:**
 
@@ -126,14 +127,14 @@ POST /companies/
 	"registeredAddress": {
 		"street": "4 NEW YORK PLAZA, FLOOR 15",
     		"postCode": "75008",
-    		"city": "Paris",
+    		"city": "Paris",str
    		"country": "FR",
 	},
     },
     "shareholdingStructure": {
     	"shareholder": {
 		"type": "Individual",
-		"isMainFounder": 1,
+		"isMainFounder": true,
 		"registeredIndividualName": {
 			"firstName": "Maxime",
 			"lastName": "Champoux",
@@ -166,6 +167,7 @@ POST /companies/
 		"street": "4 NEW YORK PLAZA, FLOOR 15",
     		"postCode": "75008",
     		"city": "Paris",
+		"states": null,
    		"country": "FR",
 	},
 	"commercialName": null,
@@ -174,15 +176,16 @@ POST /companies/
 	"productDescription": null,
 	"activityCode": null,
 	"legalForm": null,
-	"authorizedCapital": null,
+	"sharesNumber": null,
+	"sharesPrice": null,
 	"documents": null,
     },
     "shareholdingStructure": {
     	"shareholder": {
 		"id": "XV4edA",
 		"type": "Individual",
-		"isMainFounder": 1,
-		"ownershipPourcentage": null,
+		"isMainFounder": true,
+		"sharesNumber": null,
 		"registeredIndividualName": {
 			"firstName": "Maxime",
 			"middleName": null,
@@ -221,10 +224,13 @@ Ok well, at this stage we will require some data and documents to be already spe
 
 On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
 * legalForm
-* authorizedCapital
+* sharesNumber
+* sharesPrice
+* liberatedSharesNumber
+* document: openingAccountAgreement
 
 On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: id, type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
+* shareholder: id, type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded), .
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -240,8 +246,10 @@ PUT /companies/NT4edA/iban
 {
     "companyCreationDatas": {
 	"legalForm": "EURL",
-	"authorizedCapital": {
-		"value": "100000.00",
+	"sharesNumber": 100.00,
+	"liberatedSharesNumber": 100.00,
+	"sharesPrice": {
+		"value": 1.00,
 		"amount": "EUR",
 	"documents": {
 		"document": {
@@ -287,8 +295,10 @@ PUT /companies/NT4edA/iban
     "companyCreationDatas": {
     	"activityCode": null,
 	"legalForm": "EURL",
-	"authorizedCapital": {
-		"value": "100000.00",
+	"sharesNumber": 100.00,
+	"liberatedSharesNumber": 100.00,
+	"sharesPrice": {
+		"value": 1.00,
 		"amount": "EUR",
 	"documents": {
 		"document": {
@@ -307,8 +317,8 @@ PUT /companies/NT4edA/iban
     	"shareholder": {
 		"id": "XV4edA",
 		"type": "Individual",
-		"isMainFounder": 1,
-		"ownershipPourcentage": 100%,
+		"isMainFounder": true,
+		"sharesNumber": 100.00,
 		"registeredIndividualName": {
 			"firstName": "Maxime",
 			"middleName": null,
