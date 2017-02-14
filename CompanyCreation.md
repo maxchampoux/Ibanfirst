@@ -170,14 +170,15 @@ POST /companies/
 		"states": null,
    		"country": "FR",
 	},
+	"legalForm": null,
 	"commercialName": null,
 	"commercialAddress": null,	
 	"tag": null,
 	"productDescription": null,
 	"activityCode": null,
-	"legalForm": null,
 	"sharesNumber": null,
 	"sharesPrice": null,
+	"liberatedSharesNumber": null,
 	"documents": null,
     },
     "shareholdingStructure": {
@@ -195,9 +196,11 @@ POST /companies/
 		"registeredIndividualCountry": FR,
 		"registeredIndividualNumber": null,
 		"registeredCorporateNumber": null,
+		"registeredCorporateCountry": null,
 		"tag": null,
 		"email": "mch@ibanfirst.com",
 		"birthDate": null,
+		"birthAddress": null,
 		"phoneNumber": null,		
 		"position": "Astronaute",
 		"documents": null,
@@ -227,10 +230,10 @@ On your future company ([Shareholding Structure Object](#shareholdingStructure_o
 * sharesNumber
 * sharesPrice
 * liberatedSharesNumber
-* document: openingAccountAgreement
+* document: openingAccountAgreement, depositAccountBank, projectArticleOfAssociation
 
 On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: id, type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded), .
+* shareholder: id, type, isMainFounder, sharesNumber, email, registeredIndividualCountry (or corporateIndividualCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded), birthDate and birthAddress (depending on the type), isPep, documents: "idProof", "powerOfAttorney" and "signature".
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
