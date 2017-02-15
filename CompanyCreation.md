@@ -227,13 +227,15 @@ Ok well, at this stage we will require some data and documents to be already spe
 
 On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
 * legalForm
+* registeredAddress
+* activityType
 * sharesNumber
-* sharesPrice
-* liberatedSharesNumber
+* sharesCapital
+* liberatedPercentage
 * document: openingAccountAgreement, depositAccountBank, projectArticleOfAssociation
 
 On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: id, type, isMainFounder, sharesNumber, email, registeredIndividualCountry (or corporateIndividualCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded), birthDate and birthAddress (depending on the type), isPep, documents: "idProof", "powerOfAttorney" and "signature".
+* shareholder: id, type, isMainFounder: sharesNumber, email, registeredIndividualCountry (or corporateIndividualCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded), birthDate and birthAddress (depending on the type), isPep, documents: "idProof", "powerOfAttorney" and "signature".
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
