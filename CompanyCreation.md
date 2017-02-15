@@ -4,7 +4,7 @@
 
 #### 1. Create your company project ####
 
-Please use the following service to create your company project :
+Please use the following service to create your company project:
 ```
 POST /companies/
 ```
@@ -136,6 +136,7 @@ POST /companies/
 		"type": "Individual",
 		"isMainFounder": true,
 		"registeredIndividualName": {
+			"civility": "M",
 			"firstName": "Maxime",
 			"lastName": "Champoux",
 		},
@@ -235,7 +236,7 @@ On your future company ([Shareholding Structure Object](#shareholdingStructure_o
 * document: openingAccountAgreement, depositAccountBank, projectArticleOfAssociation
 
 On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: id, type, isMainFounder: sharesNumber, email, registeredIndividualCountry (or corporateIndividualCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded), birthDate and birthAddress (depending on the type), isPep, documents: "idProof", "powerOfAttorney" and "signature".
+* shareholder: id, type, isMainFounder, sharesNumber, email, registeredIndividualCountry (or corporateIndividualCountry depending on the type) (if isMainFouder = true), individualName (or corporateName depending on the type), document (type: IDProof) (if isMainFouder = true), birthDate and birthCountry (depending on the type) (if isMainFouder = true), isPep (if isMainFouder = true), documents: "idProof" (if isMainFouder = true).
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -250,19 +251,19 @@ By submitting your project, you will have in return an IBAN that you can share w
 PUT /companies/NT4edA/iban
 {
     "companyCreationDatas": {
+    	"activityType": 334B,
 	"legalForm": "EURL",
+	"sharesCapital": 
+		"value": 100000.00,
+		"currency": "EUR",
 	"sharesNumber": 100.00,
-	"liberatedSharesNumber": 100.00,
-	"sharesPrice": {
-		"value": 1.00,
-		"amount": "EUR",
 	"documents": {
 		"document": {
-			"type": "businessPlan",
-			"id": "Rocket Startup - Business Plan",
+			"type": "openingAccountAgreement",
+			"id": "Rocket Startup - Opening Account Agreement",
 		},
 		"document": {
-			"type": "articleOfAssociation",
+			"type": "projectArticleOfAssociation",
 			"id": "Rocket Startup - Projets de Statuts",
 		},
 	},
@@ -270,6 +271,27 @@ PUT /companies/NT4edA/iban
     "shareholdingStructure": {
     	"shareholder": {
 		"id": "XV4edA",
+		"sharesNumber": 50000.00,
+		"registeredIndivdualNationality": "France",
+		"birthDate": 25-06-1991,
+		"birthCountry": "France",
+		"isPep": true,
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "Maxime Champoux - CNI",
+			},
+		}
+	},
+	"shareholder": {
+		"sharesNumber": 50000.00,
+		"type": "Corporate",
+		"email": "holding@email.com",
+		"registeredCorporateAddress": {
+			"street": "1 rue de l'université",
+			"postCode": "75006",
+			"city": "Paris",
+			"country": "France",
 		"documents": {
 			"document": {
 				"type": "idProof",
