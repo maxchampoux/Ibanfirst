@@ -176,7 +176,7 @@ URL: /companies/-{id}/iban
 ```
 Ok well, at this stage we will require the following datas & documents:
 
-On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
+On your future company ([Company Creation Data Object](#companyCreationData_object)):
 * legalForm
 * registeredName
 * registeredAddress
@@ -364,7 +364,7 @@ URL: /companies/-{id}/projectComplete
 ```
 At this stage, we will require additional data and documents:
 
-On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
+On your future company ([Company Creation Data Object](#companyCreationData_object)):
 * legalForm
 * registeredName
 * registeredAddress
@@ -534,27 +534,6 @@ PUT /companies/NT4edA/iban
 
 ```
 
-**Example:**
-```js
-PUT /companies/NT4edA/certificateDeposit
-{
-    "companyCreationDatas": {
-    	"activityCode": "8542Z",
-	"documents": {
-		"document": {
-			"type": "businessPlan",
-			"id": "Rocket Startup - Business Plan",
-		},
-		"document": {
-			"type": "articleOfAssociation",
-			"id": "Rocket Startup - Projets de Statuts",
-		},
-	},
-    },
-   	
-},
-
-```
 
 **Returns:**
 
