@@ -86,11 +86,14 @@ We are so sad you are doing that. See you next time!
 | [`GET /companies/-{id}/document/certificateDeposit/`](#getDocuments_certificateIncorporation) | Retrieve your certificate of deposit |
 | [`PUT /companies/-{id}/document/certificateIncorporation`](#put_companiesCertificateIncorporation) | Upload your Kbis |
 | [`PUT /companies/-{id}/releaseDeposit`](#put_companiesReleaseDeposit) | Ask for the release of the deposit |
-| [`PUT /companies/-{id}/`](#put_companies) | Update the informations on my project |
-| [`GET /companies/-{id}/`](#get_companies) | Get the status of my project |
-| [`DELETE /companies/-{id}/`](#delete_companies) | Delete information on my project |
-| [`POST /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents to a company creation |
-| [`DELETE /companies/-{id}/documents/-{id}`](#putDocuments_companies) | Submit documents to a company creation |
+| [`PUT /companies/-{id}/`](#put_companies) | Update information relative to a company creation project|
+| [`GET /companies/-{id}/`](#get_companies) | Retrieve infromation relative to a company creation project |
+| [`DELETE /companies/-{id}/`](#delete_companies) | Delete a company creation project |
+| [`POST /companies/-{id}/documents/`](#putDocuments_companies) | Submit documents relative to a company creation project |
+| [`DELETE /companies/-{id}/documents/-{id}`](#putDocuments_companies) | Delete documents relative to a company creation project |
+| [`PUT /companies/-{id}/shareholder/-{id}/`](#put_companies) | Update information relative to a shareholder |
+| [`GET /companies/-{id}/shareholder/-{id}/`](#put_companies) | Retrieve information relative to a shareholder |
+| [`PUT /companies/-{id}/shareholder/-{id}/documents/`](#put_companies) | Update document relative to a shareholder |
 
 <hr />
 
@@ -111,8 +114,9 @@ On your future company ([Company Creation Data Object](#companyCreationData_obje
 On the main founder ([Shareholding Structure Object](#shareholdingStructure_object)):
 * type 
 * isMainFounder
-* registeredIndividualName
-* registeredIndividualCountry
+* registeredIndividualName (or registeredCorporateName if type = "corporate")
+* registeredIndividualCountry (or registeredCorporateCountry if type = "corporate")
+* shareholdingStructure (if type = "corporate" and for all shareholders on the 2 level owning +25%)
 * email
 
 **Parameters:**
@@ -176,7 +180,7 @@ On your future company ([Shareholding Structure Object](#shareholdingStructure_o
 * legalForm
 * registeredName
 * registeredAddress
-* activityType
+* activityCode
 * sharesNumber
 * sharesCapital
 * liberatedPercentage
@@ -187,21 +191,23 @@ On the main founder ([Shareholding Structure Object](#shareholdingStructure_obje
 * isMainFounder = true
 * sharesNumber
 * email
-* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
-* registeredIndividualName (or registeredCorporateName depending on the type)
-* document = "IDProof" (or "certificateOfIncorporation" depending on the type)
+* registeredIndividualCountry (or registeredCorporateCountry if type = "corporate")
+* registeredIndividualName (or registeredCorporateName if type = "corporate")
+* document = "IDProof" (or "certificateOfIncorporation" if type = "corporate")
 * birthDate (if type = "individual")
 * birthCountry (if type = "individual")
 * is Pep (if type = "individual")
+* shareholdingStructure (if type = "corporate" and for all shareholders on the 2 level owning +25%)
 
 On the other individual founders ([Shareholding Structure Object](#shareholdingStructure_object)):
 * type
 * isMainFounder = true
 * sharesNumber
 * email
-* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
-* registeredIndividualName (or registeredCorporateName depending on the type)
+* registeredIndividualCountry (or registeredCorporateCountry if type = "corporate")
+* registeredIndividualName (or registeredCorporateName if type = "corporate")
 * is Pep (if type = "individual")
+* shareholdingStructure (if type = "corporate" and for all shareholder on the 2 level owning +25%)
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -223,7 +229,7 @@ PUT /companies/NT4edA/iban
 		"city": "Paris",
 		"country": "FR",
 	},
-	"activityType": 334B,
+	"activityCode": 334B,
 	"legalForm": "EURL",
 	"sharesCapital": {
 		"value": 100000.00,
@@ -334,21 +340,28 @@ URL: /companies/-{id}/projectComplete
 ```
 At this stage, we will require additional data and documents:
 
-On your future company ([Company Creation Datas Object](#companyCreationDatas_object)):
-* documents: type (articleOfAssociation, businessPlan), status: uploaded.
+On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
+* legalForm
+* registeredName
+* registeredAddress
 * activityCode
+* sharesNumber
+* sharesCapital
+* liberatedPercentage
+* document = "openingAccountAgreement", "projectArticleOfAssociation", "articleOfAssociation, "businessPlan"
 
 On the main founder ([Shareholding Structure Object](#shareholdingStructure_object)):
 * type
 * isMainFounder = true
 * sharesNumber
 * email
-* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
-* registeredIndividualName (or registeredCorporateName depending on the type)
-* document = "IDProof"
+* registeredIndividualCountry (or registeredCorporateCountry if type = "corporate")
+* registeredIndividualName (or registeredCorporateName if type = "corporate")
+* document = "IDProof" (or "certificateOfIncorporation" if type = "corporate")
 * birthDate (if type = "individual")
 * birthCountry (if type = "individual")
 * is Pep (if type = "individual")
+* shareholdingStructure (if type = "corporate" and for all shareholder on the 2 level owning +25%)
 
 On the other founders ([Shareholding Structure Object](#shareholdingStructure_object)):
 * type
@@ -358,8 +371,10 @@ On the other founders ([Shareholding Structure Object](#shareholdingStructure_ob
 * registeredIndividualCountry (or registeredCorporateCountry depending on the type)
 * registeredIndividualName (or registeredCorporateName depending on the type)
 * is Pep (if type = "individual")
+* document = "IDProof" (or "certificateOfIncorporation" if type = "corporate")
+* shareholdingStructure (if type = "corporate" and for all shareholder on the 2 level owning +25%)
 
-By submitting your project, you consider that your project is complete and we will proceed to a due diligence review of of your project, the shareholders and the presence of the right deposits. When we are fine, your project status will be updated to "certificate of deposit ready" and you will be able to retrieve your certificate using the request ```GET ../companies/-{id}/document/certificateDeposit```.
+By submitting your project, you consider that your project is complete and we will proceed to a due diligence review of your project, the shareholders and the presence of the right deposits. When we are fine, your project status will be updated to "certificate of deposit ready" and you will be able to retrieve your certificate using the request ```GET ../companies/-{id}/document/certificateDeposit```.
 
 **Parameters:**
 
@@ -511,7 +526,7 @@ PUT /companies/NT4edA/certificateDeposit
 			"id": "Rocket Startup - Projets de Statuts",
 		},
 	},
-    }
+    },
    	
 },
 
@@ -521,89 +536,11 @@ PUT /companies/NT4edA/certificateDeposit
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
-| status | [Status](#type_status) | The stage of your company creation project. |
-| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
+| companies | [Companies Object](../conventions/formattingConventions.md#companies_object) | Your up-to-date company creation project description |
 
-**Example**
+**Example:** 
 ```js
-"companies": {
-    "id": NT4edA,
-    "status": "Project being reviewed",
-    "companyCreationDatas": {
-    	"activityCode": "8542Z",
-	"legalForm": "EURL",
-	"authorizedCapital": {
-		"value": "100000.00",
-		"amount": "EUR",
-	"documents": {
-		"document": {
-			"type": "businessPlan",
-			"id": "Rocket Startup - Business Plan",
-			"status": "uploaded",
-		},
-		"document": {
-			"type": "articleOfAssociation",
-			"id": "Rocket Startup - Projets de Statuts",
-			"status": "uploaded",
-		},
-	},
-    },
-    "shareholdingStructure": {
-    	"shareholder": {
-		"type": "Individual",
-		"isMainFounder": 1,
-		"ownershipPourcentage": 100%,
-		"registeredIndividualName": {
-			"firstName": "Maxime",
-			"middleName": null,
-			"lastName": "Champoux",
-		}
-		"registeredCorporateName": null,
-		"registeredIndividualCountry": FR,
-		"registeredIndividualNumber": null,
-		"registeredCorporateNumber": null,
-		"tag": null,
-		"email": "mch@ibanfirst.com",
-		"birthDate": null,
-		"phoneNumber": null,		
-		"position": "Astronaute",
-		"documents": {
-			"document": {
-				"type": "idProof",
-				"id": "Maxime Champoux - CNI",
-				"status": "uploaded",
-			},
-		},
-	},
-    },
-    "account": {
-	"currency": EUR,
-	"accountNumber": "FR914516981638516313513",
-	"holderName": "Rocket Startup [En cours de création]",
-	"financialMovements": {
-		"financialMovement" {
-			"id": "FX4edA",
-			"bookingDate": "2017-07-14",
-			"valueDate": "2017-07-14",
-			"authorizedCapital": {
-				"value": "100000.00",
-				"amount": "EUR",
-			}
-			"sourceAccount": {
-				"accountNumber": "FR650516981638516313513",
-				"holderName": "Maxime Champoux",
-			}
-			"targetAccount": {
-				"accountNumber": "FR914516981638516313513",
-				"holderName": "Rocket Startup [En cours de création]",
-			}
-		}
-	},
-    },
-}
+"companies": {companies},
 ```
 
 <hr />
@@ -703,414 +640,3 @@ PUT /companies/NT4edA/document/certificateIncorporation
 ```
 <hr />
 
-# API Objects  
-
-* [Companies Object](#companies_object)
-* [Company Creation Datas Object](#companyCreationDatas_object)
-* [Company Submit Datas Object](#companySubmitDatas_object)
-* [Shareholder Object](#shareholder_object)
-* [Founders Object](#founder_object)
-* [Account Object](#account_object)
-* [Phone Object](#phone_object)
-* [Individual Name Object](#individualName_object)
-* [Amount Object](#amount_object)
-
-## Details ##
-
-#### <a id="companies_object"></a> Companies Object ####
-
-My object to follow where I am in the company creation process.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| id | [ID](#type_id) | The IF code identifying the company to be created. |
-| status | [status](#status) | The status of the company file. |
-| companyCreationDatas | [Company Creation Datas](#companyCreationDatas) | Specific data required for "attestation de dépôt du capital social" |
-| companyRegistrationDatas | [Company Registration Datas](#companyRegistrationDatas) | Specific data required for "libération du capital social" |
-| shareholdingStructures | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| managerialStructures | Array<[Founder Object](#founder_object)> | The regulatory list of the representatives, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| accounts | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
-
-**Example:**
-```js
-"companies": {
-    "id": NT4edA,
-    "status": "En attente de dépot de capital social",
-    "companyCreationDatas": {companyCreationDatas}
-    "shareholdingStructures": [{shareholder}]
-    "managerialStructures": [{founder}]
-    "account": {account},	    
-}
-```
-<hr />
-
-#### <a id="companyCreationDatas_object"></a> Company Creation Datas Object ####
-
-Specific information required for opening a company creation file.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| registeredName | String(100) | The legal name of the company to be created. |
-| commercialName | String(100) | The commercial name of the company to be created. |
-| tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
-| registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
-| commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
-| activityCode | [NAFID](#NAF) | The code identifying the type of business of the company to be created. |
-| legalForm | [Legal Form](#legalForm) | The legal form of the company to be created.. |
-| authorizedCapital | [Amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
-| documents | Array<[Document Object](#document_object)> | The required documents for creating a company. |
-
-**Example:**
-
-```js
-"companyCreationDatas": {
-    "registeredName": "DJPAD",
-    "tag":"null",
-    "registeredAddress": {address},
-    "commercialAddress": {address},
-    "activityCode":"6201Z",
-    "legalForm":"SARL unipersonnelle",
-    "authorizedCapital":{amount},
-    "documents": [
-    	"document": {
-		"type": "article of association",
-		"tag": "NameOfTheDocument",
-	}
-	"document": {
-		"type": "kbis",
-		"tag": "NameOfTheDocument",
-	}
-    ]
-}
-```
-
-<hr />
-
-
-#### <a id="companySubmitDatas_object"></a> Company Creation Datas Object ####
-
-Specific information required for submitting a company creation file.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| registeredName | String(100) | The legal name of the company to be created. |
-| commercialName | String(100) | The commercial name of the company to be created. |
-| tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
-| registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
-| commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
-| activityCode | [NAFID](#NAF) | The code identifying the type of business of the company to be created. |
-| legalForm | [Legal Form](#legalForm) | The legal form of the company to be created.. |
-| authorizedCapital | [Amount Object](#amount_object)  | The amount in shareholding capital as mentionned in the status. |
-| documents | Array<[Document Object](#document_object)> | The required documents for creating a company. |
-
-**Example:**
-
-```js
-"companyCreationDatas": {
-    "registeredName": "DJPAD",
-    "registeredAddress": {address},
-    "activityCode": "6201Z",
-    "legalForm": "SARL unipersonnelle",
-    "authorizedCapital": {
-    	"value": 1000.00,
-	"curency": EUR,
-    }	
-    "documents": [
-    	"document": {
-		"type": "article of association",
-		"tag": "NameOfTheDocument",
-	}
-	"document": {
-		"type": "kbis",
-		"tag": "NameOfTheDocument",
-	}
-    ]
-}
-```
-
-<hr />
-
-#### <a id="companyRegistrationDatas_object"></a> Company Registration Datas Object ####
-
-Additional information required for releasing "capital social".
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| registeredNumber | String(100) | The unique legal identifier of the entity opening the account. |
-| registrationDate | [Date](#type_date) | The legal date of creation of the entity. |
-
-**Example:**
-
-```js
-"companyRegistrationDatas": {
-    "registeredParentNumber": "	814455614",
-    "registrationDate":"2015-11-04",
-}
-```
-
-<hr />
-
-#### <a id="shareholder_object"></a> Shareholder Object ####
-
-This object shows the shareholder ownership and detailed information.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| ownership | Percentage | The pourcentage of ownership the shareholder has witha  direct company |
-| shareholder | [Company Shareholding Datas Object](#companyShareholdingDatas_object) or [Individual Shareholding Datas Object](#individualShareholdingDatas_object) | Specific data that is required on shareholder. |
-
-
-**Example:**
-
-```js
-"shareholderStructures": [
-    "shareholder": {
-    	"ownership": 20%,
-	"shareholderData": {companyShareholdingDatas},
-    },
-    "shareholder": {
-    	"ownership": 80%,
-	"shareholderDatas": {individualShareholdingDatas},
-    },
-}
-```
-
-<hr />
-
-#### <a id="companyShareholdingDatas_object"></a> Company Shareholding Datas Object ####
-
-This object shows the shareholder ownership and detailed information.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| registeredName | String(100) | The legal name of the company to be created. |
-| commercialName | String(100) | The commercial name of the company to be created. |
-| tag | String(100) | The customized name of the company to be created. (Will only be used internally). |
-| registeredAddress | [Address Object](#address_object) | The registered address of the company to be created. |
-| commercialAddress | [Address Object](#address_object) | The commercial address of the company to be created. |
-| activityCode | [NAFID](../conventions/formattingConventions.md#NAF) | The code identifying the type of business of the company to be created. |
-| legalForm | [Legal Form](../conventions/formattingConventions.md#legalForm) | The legal form of the company to be created.. |
-
-<hr />
-
-#### <a id="individualShareholdingdataDatas_object"></a> Individual Shareholding Datas Object ####
-
-This object shows the shareholder ownership and detailed information.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| registeredNumber | String(100) | The unique legal identifier of the contact. |
-| registeredCountry| String(100) | The registering country of the contact. |
-| registeredName | [Individual Name Object](#individual_name_object) | The individual name of the contact. |
-| tag | String(100) | The customized name of the contact. |
-| address | [Address Object](#address_object) | The contact address. |
-| birthDate | [Date](#type_date) | The birthdate of the contact. |
-| phoneNumber | [Phone Object](#phone_object)  | The phone number of the entity. |
-| position | [Position Object](#position_object)  | The position of the entity. |
-
-
-**Example:**
-
-```js
-"contact": {
-    "id": ND4ue2,
-    "registeredNumber": "81445561400010",
-    "registeredName": {individualName},
-    "tag":"null",
-    "address": {address},
-    "birthDate":"1980-11-04",
-    "phoneNumber":{phone},
-    "position":{position},
-}
-```
-<hr />
-
-#### <a id="founder_object"></a> Founder Object ####
-
-The Founder object.
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| registeredNumber | String(100) | The unique legal identifier of the contact. |
-| registeredCountry| String(100) | The registering country of the contact. |
-| registeredName | [Individual Name Object](#individual_name_object) | The individual name of the contact. |
-| tag | String(100) | The customized name of the contact. |
-| address | [Address Object](#address_object) | The contact address. |
-| birthDate | [Date](#type_date) | The birthdate of the contact. |
-| phoneNumber | [Phone Object](#phone_object)  | The phone number of the entity. |
-| position | [Position Object](#position_object)  | The position of the entity. |
-
-<hr />
-
-#### <a id="account_object"></a> Account Object ####
-
-When an Account is specified as part of a JSON body, it is encoded as an object with the following fields:
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency of the account. |
-| tag |  String(50) | Custom reference of the account. |
-| accountNumber | String(40) | The code specifying the account (can be either an Iban or an account number). |
-| holderBank | [ID](#type_id) | The recipient bank details, holding the account. |
-| holder | [Holder Object](#holder_object) | The recipient details, owner of the account. If the company is in pending creation, then [pending creation] will be added aside the owner name. |
-
-**Example:**
-
-```js
-"account": {
-    "currency": "EUR",
-    "tag": "My wallet account EUR",
-    "accountNumber": "516981638516313513",
-    "correspondantBank":{correspondentBank}
-    "holderBank":{beneficiaryBank}
-    "holder":{beneficiary}
-}
-```
-
-<hr />
-
-
-#### <a id="address_object"></a> Address Object ####
-
-When an address is specified as part of a JSON body, it is encoded as an object with the following fields:
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| street1 | String(255) | The street for the address described. |
-| street2 | String(255) | The continuation street for the address described. |
-| postCode | String(15) | The ZIP/Post code for the address described. |
-| city | String(35) | The city for the address described. |
-| state | String(2) | The state code for the address described. This field could be required if the country use a state system, like United States or Canada. To see a full list of state code, please refer to [this site](http://www.mapability.com/ei8ic/contest/states.php). |
-| country | String(2) | The two-letters abbreviation for the country, following the [ISO-3166](http://fr.wikipedia.org/wiki/ISO_3166) for the address described. |
-
-**Example:**
-
-```js
-"address": {
-	"street": "4 NEW YORK PLAZA, FLOOR 15",
-	"postCode": "10004",
-	"city": "NEW YORK",
-	"state": "NY",
-	"country": "US"
-}
-```
-
-<hr />
-
-#### <a id="phone_object"></a> Phone Object ####
-
-When a phone number is specified as part of a JSON body, it is encoded as an object with the following fields:
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| countryCode | String(4) | Numeric country code. Optional +, followed by 1-3 digits. |
-| phoneNumber | String(15) | Country code and phone number. |
-
-**Example:**
-
-```js
-"phone": {
-    "countryCode": "+33",
-    "phoneNumber": "81445561400010",
-}
-```
-
-<hr />
-
-#### <a id="individualName_object"></a> Individual Name Object ####
-
-When a phone number is specified as part of a JSON body, it is encoded as an object with the following fields:
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| first | String(35) | The individual's first name. Truncated after the first 35 characters. |
-| middle | String(35) | The individual's middle name. Truncated after the first 35 characters. |
-| last | String(35) | The individual's last name. Truncated after the first 35 characters. |
-
-**Example:**
-
-```js
-"phone": {
-    "first": "John",
-    "last": "Doe",
-}
-```
-
-<hr />
-
-#### <a id="amount_object"></a> Amount Object ####
-
-When an amount of currency is specified as part of a JSON body, it is encoded as an object with the following fields:
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| value  | [Quoted Decimal](../conventions/formattingConventions.md#type_quoteddecimal) | The quantity of the currency. |
-| currency | [Currency](../conventions/formattingConventions.md#type_currency) | The three-digit code specifying the currency related to the amount. |
-
-**Example:**
-
-```js
-"amount": {
-	"value": "10000.00",
-	"currency": "GBP"
-}
-```
-
-<hr />
-
-
-#### <a id="document_object"></a> Document Object ####
-
-The list of document that can be submitted for a shareholder/ individual.
-
-
-**Object resources:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| idProof | [Id Types](#idTypes_object)  | The url where the file is stored. |
-| addressProof | [Proof of Address Object](#addressProof_object)  | The url where the file is stored. |
-
-**Example:**
-
-```js
-TBD
-```
-
-
-<hr />
-# Formatting Conventions #  
-
-### <a id="type_date"></a> Date Type ###
-
-The Date type represents a date with its year, month and day.
-
-| Type | Real type | format | description | example |
-|------|-----------|--------|-------------|---------|
-| Date | String | `^[0-9]{4}\-[0-9]{2}\-[0-9]{2}$` - `YYYY-MM-DD` | A String representing a date by its year, month and day in month. | `2015-07-14` |
