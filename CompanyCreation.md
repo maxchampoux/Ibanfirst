@@ -108,8 +108,12 @@ On your future company ([Company Creation Data Object](#companyCreationData_obje
 * registeredName
 * registeredAddress
 
-On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: type, isMainFounder, registeredIndividualName, registeredIndividualCountry, email
+On the main founder ([Shareholding Structure Object](#shareholdingStructure_object)):
+* type 
+* isMainFounder
+* registeredIndividualName
+* registeredIndividualCountry
+* email
 
 **Parameters:**
 
@@ -151,71 +155,13 @@ POST /companies/
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | [ID](#type_id) | The internal reference for this company creation project. |
-| status | [Status](#type_status) | The stage of your company creation project. |
-| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| account | [Account Object](#account_object) | The IBAN that has been open for the purpose of creating the company. |
+| companies | [Companies Object](../conventions/formattingConventions.md#companies_object) | Your up-to-date company creation project description |
 
-**Example:**
+**Example:** 
 ```js
-"companies": {
-    "id": NT4edA,
-    "status": "Not yet submitted",
-    "companyCreationData": {
-    	"registeredName": "Rocket Startup",
-	"registeredAddress": {
-		"street": "4 NEW YORK PLAZA, FLOOR 15",
-    		"postCode": "75008",
-    		"city": "Paris",
-		"states": null,
-   		"country": "FR",
-	},
-	"legalForm": null,
-	"commercialName": null,
-	"commercialAddress": null,	
-	"tag": null,
-	"productDescription": null,
-	"activityCode": null,
-	"sharesNumber": null,
-	"sharesPrice": null,
-	"liberatedSharesNumber": null,
-	"documents": null,
-    },
-    "shareholdingStructure": {
-    	"shareholder": {
-		"id": "XV4edA",
-		"type": "Individual",
-		"isMainFounder": true,
-		"sharesNumber": null,
-		"registeredIndividualName": {
-			"firstName": "Maxime",
-			"middleName": null,
-			"lastName": "Champoux",
-		}
-		"registeredCorporateName": null,
-		"registeredIndividualCountry": FR,
-		"registeredIndividualNumber": null,
-		"registeredCorporateNumber": null,
-		"registeredCorporateCountry": null,
-		"tag": null,
-		"email": "mch@ibanfirst.com",
-		"birthDate": null,
-		"birthAddress": null,
-		"phoneNumber": null,		
-		"position": "Astronaute",
-		"documents": null,
-		"shareholdingStructure": null,
-	},
-	"account": {
-	    "currency": null,
-	    "accountNumber": null,
-	    "holderName": null,
-	    "financialMovements": null,
-        },
-    },		
-},
+"companies": {companies},
 ```
+
 <hr />
 
 #### <a id="put_companiesIban"></a> Ask for an IBAN ####
@@ -224,19 +170,38 @@ POST /companies/
 Method: PUT 
 URL: /companies/-{id}/iban
 ```
-Ok well, at this stage we will require some data and documents to be already specified in the project:
+Ok well, at this stage we will require the following datas & documents:
 
 On your future company ([Shareholding Structure Object](#shareholdingStructure_object)):
 * legalForm
+* registeredName
 * registeredAddress
 * activityType
 * sharesNumber
 * sharesCapital
 * liberatedPercentage
-* document: openingAccountAgreement, depositAccountBank, projectArticleOfAssociation
+* document = "openingAccountAgreement", "projectArticleOfAssociation"
 
-On the founders' team ( [Shareholder Object](#shareholder_object) |):
-* shareholder: id, type, isMainFounder, sharesNumber, email, registeredIndividualCountry (or corporateIndividualCountry depending on the type) (if isMainFouder = true), individualName (or corporateName depending on the type), document (type: IDProof) (if isMainFouder = true), birthDate and birthCountry (depending on the type) (if isMainFouder = true), isPep (if isMainFouder = true), documents: "idProof" (if isMainFouder = true).
+On the main founder ([Shareholding Structure Object](#shareholdingStructure_object)):
+* type
+* isMainFounder = true
+* sharesNumber
+* email
+* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
+* registeredIndividualName (or registeredCorporateName depending on the type)
+* document = "IDProof" (or "certificateOfIncorporation" depending on the type)
+* birthDate (if type = "individual")
+* birthCountry (if type = "individual")
+* is Pep (if type = "individual")
+
+On the other individual founders ([Shareholding Structure Object](#shareholdingStructure_object)):
+* type
+* isMainFounder = true
+* sharesNumber
+* email
+* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
+* registeredIndividualName (or registeredCorporateName depending on the type)
+* is Pep (if type = "individual")
 
 By submitting your project, you will have in return an IBAN that you can share with the co-founders for collecting the deposit of each one.
 
@@ -251,11 +216,19 @@ By submitting your project, you will have in return an IBAN that you can share w
 PUT /companies/NT4edA/iban
 {
     "companyCreationDatas": {
-    	"activityType": 334B,
+	"registeredName": "Rocket Startup",
+	"registeredAddress": {
+		"street": "4 NEW YORK PLAZA, FLOOR 15",
+		"postCode": "75008",
+		"city": "Paris",
+		"country": "FR",
+	},
+	"activityType": 334B,
 	"legalForm": "EURL",
-	"sharesCapital": 
+	"sharesCapital": {
 		"value": 100000.00,
 		"currency": "EUR",
+	}
 	"sharesNumber": 100.00,
 	"documents": {
 		"document": {
@@ -267,11 +240,20 @@ PUT /companies/NT4edA/iban
 			"id": "Rocket Startup - Projets de Statuts",
 		},
 	},
-    }
+    },
     "shareholdingStructure": {
     	"shareholder": {
 		"id": "XV4edA",
 		"sharesNumber": 50000.00,
+		"type": "Individual",
+		"isMainFounder": true,
+		"email": "mch@ibanfirst.com",
+		"registeredIndividualName": {
+			"civility": "M",
+			"firstName": "Maxime",
+			"lastName": "Champoux",
+		},
+		"registeredIndividualCountry": FR,
 		"registeredIndivdualNationality": "France",
 		"birthDate": 25-06-1991,
 		"birthCountry": "France",
@@ -281,23 +263,52 @@ PUT /companies/NT4edA/iban
 				"type": "idProof",
 				"id": "Maxime Champoux - CNI",
 			},
-		}
+		},
 	},
 	"shareholder": {
 		"sharesNumber": 50000.00,
 		"type": "Corporate",
-		"email": "holding@email.com",
+		"legalForm": "EURL",
+		"isMainFounder": false,
+		"email": "myHolding@email.com",
 		"registeredCorporateAddress": {
 			"street": "1 rue de l'université",
 			"postCode": "75006",
 			"city": "Paris",
 			"country": "France",
+		},
 		"documents": {
 			"document": {
-				"type": "idProof",
-				"id": "Maxime Champoux - CNI",
+				"type": "certificateOfIncorporation",
+				"id": "KBIS - myHolding",
 			},
-		}
+			"document": {
+				"type": "articleOfAssociation",
+				"id": "KBIS - myHolding",
+			},
+		},
+		 "shareholdingStructure": {
+			"shareholder": {
+				"id": "WE4edA",
+				"sharespercentage": 100%,
+				"registeredIndividualName": {
+					"civility": "M",
+					"firstName": "Maxime",
+					"lastName": "Champoux",
+				},
+				"registeredIndividualCountry": FR,
+				"registeredIndivdualNationality": "France",
+				"birthDate": 25-06-1991,
+				"birthCountry": "France",
+				"isPep": true,
+				"documents": {
+					"document": {
+						"type": "idProof",
+						"id": "Maxime Champoux - CNI",
+					},
+				},
+			},
+		},
 	},
     },		
 },
@@ -308,76 +319,12 @@ PUT /companies/NT4edA/iban
 
 | Field | Type | Description |
 |-------|------|-------------|
-| id | [ID](../conventions/formattingConventions.md#type_id) | The internal reference for this company creation. |
-| status | [Status](#type_status) | The stage of your company creation project. |
-| companyCreationData | [Company Creation Data Object](#companyCreationData_object) | Standard information on the projet and the future activity of the company. |
-| shareholdingStructure | Array<[Shareholder Object](#shareholder_object)> | The regulatory list of shareholders, part of the Ultimate Beneficiary Owners that must be identified as part as our Compliance procedure on the future company. |
-| account | [Account Object](#account_object) | The IBAN account that has been open for the purpose of creating the company. |
+| companies | [Companies Object](../conventions/formattingConventions.md#companies_object) | Your up-to-date company creation project description |
 
-**Example:**
+**Example:** 
 ```js
-"companies": {
-    "id": NT4edA,
-    "status": "Awaiting deposits",
-    "companyCreationDatas": {
-    	"activityCode": null,
-	"legalForm": "EURL",
-	"sharesNumber": 100.00,
-	"liberatedSharesNumber": 100.00,
-	"sharesPrice": {
-		"value": 1.00,
-		"amount": "EUR",
-	"documents": {
-		"document": {
-			"type": "businessPlan",
-			"id": "Rocket Startup - Business Plan",
-			"status": "not uploaded",
-		},
-		"document": {
-			"type": "articleOfAssociation",
-			"id": "Rocket Startup - Projets de Statuts",
-			"status": "not uploaded",
-		},
-	},
-    },
-    "shareholdingStructure": {
-    	"shareholder": {
-		"id": "XV4edA",
-		"type": "Individual",
-		"isMainFounder": true,
-		"sharesNumber": 100.00,
-		"registeredIndividualName": {
-			"firstName": "Maxime",
-			"middleName": null,
-			"lastName": "Champoux",
-		}
-		"registeredCorporateName": null,
-		"registeredIndividualCountry": FR,
-		"registeredIndividualNumber": null,
-		"registeredCorporateNumber": null,
-		"tag": null,
-		"email": "mch@ibanfirst.com",
-		"birthDate": null,
-		"phoneNumber": null,		
-		"position": "Astronaute",
-		"documents": {
-			"document": {
-				"type": "idProof",
-				"id": "Maxime Champoux - CNI",
-				"status": "uploaded",
-			},
-		},
-	},
-    },
-    "account": {
-	"currency": EUR,
-	"accountNumber": "FR914516981638516313513",
-	"holderName": "Rocket Startup [En cours de création]",
-	"financialMovements": null,
-    },
-}
+"companies": {companies},
 ```
-<hr />
 
 #### <a id="put_companiesComplete"></a> Ask for a certificate of deposit ####
 
@@ -391,8 +338,26 @@ On your future company ([Company Creation Datas Object](#companyCreationDatas_ob
 * documents: type (articleOfAssociation, businessPlan), status: uploaded.
 * activityCode
 
-On the founders' team [Shareholding Structure Object](#shareholdingStructure_object):
-* shareholdingStructure/ shareholder: type, isMainFounder, ownership, email, individualCountry (or corporateCountry depending on the type), individualName (or corporateName depending on the type), document (type: IDProof and status: uploaded).
+On the main founder ([Shareholding Structure Object](#shareholdingStructure_object)):
+* type
+* isMainFounder = true
+* sharesNumber
+* email
+* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
+* registeredIndividualName (or registeredCorporateName depending on the type)
+* document = "IDProof"
+* birthDate (if type = "individual")
+* birthCountry (if type = "individual")
+* is Pep (if type = "individual")
+
+On the other founders ([Shareholding Structure Object](#shareholdingStructure_object)):
+* type
+* isMainFounder = true
+* sharesNumber
+* email
+* registeredIndividualCountry (or registeredCorporateCountry depending on the type)
+* registeredIndividualName (or registeredCorporateName depending on the type)
+* is Pep (if type = "individual")
 
 By submitting your project, you consider that your project is complete and we will proceed to a due diligence review of of your project, the shareholders and the presence of the right deposits. When we are fine, your project status will be updated to "certificate of deposit ready" and you will be able to retrieve your certificate using the request ```GET ../companies/-{id}/document/certificateDeposit```.
 
@@ -401,6 +366,134 @@ By submitting your project, you consider that your project is complete and we wi
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | id | [ID](../conventions/formattingConventions.md#type_id) | Required | The internal reference for this company creation project. |
+
+
+**Example of a Call containing anll required information at this stage:**
+```js
+PUT /companies/NT4edA/iban
+{
+    "companyCreationDatas": {
+	"registeredName": "Rocket Startup",
+	"registeredAddress": {
+		"street": "4 NEW YORK PLAZA, FLOOR 15",
+		"postCode": "75008",
+		"city": "Paris",
+		"country": "FR",
+	},
+	"activityType": 334B,
+	"legalForm": "EURL",
+	"sharesCapital": {
+		"value": 100000.00,
+		"currency": "EUR",
+	}
+	"sharesNumber": 100.00,
+	"documents": {
+		"document": {
+			"type": "openingAccountAgreement",
+			"id": "Rocket Startup - Opening Account Agreement",
+		},
+		"document": {
+			"type": "projectArticleOfAssociation",
+			"id": "Rocket Startup - Projets de Statuts",
+		},
+	},
+    },
+    "shareholdingStructure": {
+    	"shareholder": {
+		"id": "XV4edA",
+		"sharesNumber": 50000.00,
+		"type": "Individual",
+		"isMainFounder": true,
+		"email": "mch@ibanfirst.com",
+		"registeredIndividualName": {
+			"civility": "M",
+			"firstName": "Maxime",
+			"lastName": "Champoux",
+		},
+		"registeredIndividualCountry": FR,
+		"registeredIndivdualNationality": "France",
+		"birthDate": 25-06-1991,
+		"birthCountry": "France",
+		"isPep": true,
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "Maxime Champoux - CNI",
+			},
+		},
+	},
+	"shareholder": {
+		"id": "WZ4edA",
+		"sharesNumber": 10000.00,
+		"type": "Individual",
+		"isMainFounder": true,
+		"email": "mch@ibanfirst.com",
+		"registeredIndividualName": {
+			"civility": "M",
+			"firstName": "John",
+			"lastName": "Doe",
+		},
+		"registeredIndividualCountry": FR,
+		"registeredIndivdualNationality": "France",
+		"birthDate": 25-06-1991,
+		"birthCountry": "France",
+		"isPep": true,
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "John Doe - CNI",
+			},
+		},
+	},
+	"shareholder": {
+		"sharesNumber": 40000.00,
+		"type": "Corporate",
+		"legalForm": "EURL",
+		"isMainFounder": false,
+		"email": "myHolding@email.com",
+		"registeredCorporateAddress": {
+			"street": "1 rue de l'université",
+			"postCode": "75006",
+			"city": "Paris",
+			"country": "France",
+		},
+		"documents": {
+			"document": {
+				"type": "certificateOfIncorporation",
+				"id": "KBIS - myHolding",
+			},
+			"document": {
+				"type": "articleOfAssociation",
+				"id": "KBIS - myHolding",
+			},
+		},
+		 "shareholdingStructure": {
+			"shareholder": {
+				"id": "WE4edA",
+				"sharespercentage": 100%,
+				"registeredIndividualName": {
+					"civility": "M",
+					"firstName": "Maxime",
+					"lastName": "Champoux",
+				},
+				"registeredIndividualCountry": FR,
+				"registeredIndivdualNationality": "France",
+				"birthDate": 25-06-1991,
+				"birthCountry": "France",
+				"isPep": true,
+				"documents": {
+					"document": {
+						"type": "idProof",
+						"id": "Maxime Champoux - CNI",
+					},
+				},
+			},
+		},
+	},
+    },		
+},
+
+```
 
 **Example:**
 ```js
