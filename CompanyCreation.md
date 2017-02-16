@@ -271,9 +271,33 @@ PUT /companies/NT4edA/iban
 			},
 		},
 	},
+	
 	"shareholder": {
-		"sharesNumber": 50000.00,
+		"id": "WZ4edA",
+		"sharesNumber": 10000.00,
+		"type": "Individual",
+		"isMainFounder": true,
+		"email": "mch@ibanfirst.com",
+		"registeredIndividualName": {
+			"civility": "M",
+			"firstName": "John",
+			"lastName": "Doe",
+		},
+		"registeredIndividualCountry": FR,
+		"registeredIndivdualNationality": "France",
+		"birthDate": 25-06-1991,
+		"birthCountry": "France",
+		"isPep": true,
+		"documents": {
+			"document": {
+				"type": "idProof",
+				"id": "John Doe - CNI",
+			},
+		},
+	},
+	"shareholder": {
 		"type": "Corporate",
+		"sharesNumber": 40000.00,
 		"legalForm": "EURL",
 		"isMainFounder": false,
 		"email": "myHolding@email.com",
