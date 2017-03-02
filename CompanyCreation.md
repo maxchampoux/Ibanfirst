@@ -372,7 +372,7 @@ On your future company ([Company Creation Data Object](#companyCreationData_obje
 * sharesNumber
 * sharesCapital
 * liberatedPercentage
-* document = "openingAccountAgreement", "projectArticleOfAssociation", "articleOfAssociation, "businessPlan"
+* document = "openingAccountAgreement", "projectArticleOfAssociation"
 
 On the main founder ([Shareholding Structure Object](#shareholdingStructure_object)):
 * type
@@ -389,7 +389,7 @@ On the main founder ([Shareholding Structure Object](#shareholdingStructure_obje
 
 On the other founders ([Shareholding Structure Object](#shareholdingStructure_object)):
 * type
-* isMainFounder = true
+* isMainFounder = false
 * sharesNumber
 * email
 * registeredIndividualCountry (or registeredCorporateCountry depending on the type)
